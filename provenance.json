@@ -1,0 +1,15 @@
+{
+  "schema": "zenith.source-baseline.v1",
+  "source_revision": "a3b1009a1898866b99f62b9094f149a453d7261e",
+  "files": [
+    {
+      "path": "src/DeploymentMonitor/DeploymentMonitor.tsx",
+      "sha256": "16b40269aceaf55f6faa6fbd51d723e1b8d4307f71795112d5ae041cee3a6c27"
+    },
+    {
+      "path": "src/DeploymentMonitor/DeploymentMonitor.css",
+      "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
+    }
+  ],
+  "scope": "Deployment monitor only. Private gallery, fonts, decks, imagery and Git history are excluded."
+}

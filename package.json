@@ -1,0 +1,42 @@
+{
+  "name": "@zenith-research/ui-deployment",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "description": "Source baseline of the Zenith deployment monitor presentation component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZenithResearch/zenith-ui-deployment.git"
+  },
+  "files": [
+    "dist",
+    "src",
+    "provenance.json",
+    "README.md",
+    "NOTICE.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/DeploymentMonitor/DeploymentMonitor.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/copy-css.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:source": "node scripts/check-source.mjs"
+  },
+  "peerDependencies": {
+    "react": "^19.2.4"
+  },
+  "devDependencies": {
+    "react": "19.2.4",
+    "@types/react": "19.2.14",
+    "typescript": "6.0.2"
+  }
+}
