@@ -20,7 +20,7 @@
     },
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.tsx",
-      "sha256": "f8d1ab890c07009b3be8d247cf840dc58acd41fc7797c6dfe05c90a73c46bd1c",
+      "sha256": "2d0291c837312fae0ec7a9fcc54066a81fd5f5d6bf336248d33567c37e2ab684",
       "origin": "native empty-workspace authoring view"
     }
   ]
