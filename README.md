@@ -25,3 +25,7 @@ and bundle its CSS with your application. No npm release is published.
 The root project currently carries no reuse license; `UNLICENSED` preserves that
 existing state rather than adding an unapproved license. Public visibility is
 source availability, not an open-source license grant. See NOTICE.md.
+
+## Empty workspace console
+
+`WorkspaceConsole` is a controlled presentation component for native setup proposals, a Runtime-backed process catalog and draft editing/publication. It owns no storage, signing, execution or network calls. The consuming local Hub supplies state and callbacks. New consoles begin with an empty editor/catalog and no selected process or run. Import `@zenith-research/ui-deployment/workspace.css` for its styles.

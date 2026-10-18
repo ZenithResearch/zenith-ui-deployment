@@ -11,5 +11,17 @@
       "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
     }
   ],
-  "scope": "Deployment monitor only. Private gallery, fonts, decks, imagery and Git history are excluded."
+  "scope": "Deployment monitor and empty workspace presentation only. Private gallery, fonts, decks, imagery and Git history remain excluded.",
+  "authored_files": [
+    {
+      "path": "src/WorkspaceConsole/WorkspaceConsole.css",
+      "sha256": "ab1dd52d036f6cba27e0322bdd30f7fc939a4e46bb24f917ebe654ef18c076d9",
+      "origin": "native empty-workspace authoring view"
+    },
+    {
+      "path": "src/WorkspaceConsole/WorkspaceConsole.tsx",
+      "sha256": "f8d1ab890c07009b3be8d247cf840dc58acd41fc7797c6dfe05c90a73c46bd1c",
+      "origin": "native empty-workspace authoring view"
+    }
+  ]
 }

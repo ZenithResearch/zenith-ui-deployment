@@ -21,7 +21,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/DeploymentMonitor/DeploymentMonitor.css"
+    "./styles.css": "./dist/DeploymentMonitor/DeploymentMonitor.css",
+    "./workspace.css": "./dist/WorkspaceConsole/WorkspaceConsole.css"
   },
   "sideEffects": [
     "**/*.css"
