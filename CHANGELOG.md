@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+- Separate installed Hermes software from the Hub guide-profile setup, with saved model-setting selection — an installed CLI no longer leads to a redundant install action.
+
+
 ### Fixed
 - Refresh expired or blocked welcome reviews in place — owners can repair prerequisites or resume reading without navigating away or repeatedly applying a stale plan.
 - Show a controller-check error and retry on the Hermes welcome screen — users can recover from an unavailable setup instead of facing an unexplained disabled action.

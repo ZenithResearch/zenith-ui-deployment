@@ -63,15 +63,24 @@ export function HermesWelcomeReview({
 }) {
   const invalid = plan.invalidated || Date.now() >= plan.expiresAt;
   const item = plan.items[0],
-    install = ["install", "resume-install"].includes(plan.action);
+    install = ["install", "resume-install"].includes(plan.action),
+    profile = plan.action === "create-guide-profile";
   return (
     <>
       <dl className="zn-welcome__facts">
-        <dt>{install ? "Install on this Mac" : "Hermes model"}</dt>
+        <dt>
+          {profile
+            ? "Guide profile"
+            : install
+              ? "Install on this Mac"
+              : "Hermes model"}
+        </dt>
         <dd>
-          {install
-            ? "Install from the official Nous repository"
-            : item.config.modelName}
+          {profile
+            ? "hub-guide"
+            : install
+              ? "Install from the official Nous repository"
+              : item.config.modelName}
         </dd>
         <dt>Source repository</dt>
         <dd>
@@ -85,7 +94,7 @@ export function HermesWelcomeReview({
         </dd>
         <dt>Private instance</dt>
         <dd>{item.destination}</dd>
-        {!install && (
+        {!install && !profile && (
           <>
             <dt>Model connection</dt>
             <dd>
@@ -112,9 +121,11 @@ export function HermesWelcomeReview({
         )}
       </dl>
       <p>
-        {install
-          ? "Installs the software and its managed runtime. Model selection comes next."
-          : "Saves this configuration and starts Hermes. Your first chat is sent only when you choose."}
+        {profile
+          ? "Uses the installed Hermes software and creates a dedicated Hub guide. Model configuration comes next."
+          : install
+            ? "Installs the software and its managed runtime. Model selection comes next."
+            : "Saves this configuration and starts Hermes. Your first chat is sent only when you choose."}
       </p>
       {invalid && (
         <p role="status">
@@ -164,14 +175,16 @@ export function HermesWelcomeReview({
           {busy
             ? "Checking…"
             : invalid
-              ? "Refresh review"
+              ? "Recheck setup"
               : item.prerequisites.length > 0
                 ? "Check requirements again"
-                : install
-                  ? "Install Hermes"
-                  : plan.action === "start"
-                    ? "Start Hermes"
-                    : "Set up Hermes"}
+                : profile
+                  ? "Create guide profile"
+                  : install
+                    ? "Install Hermes"
+                    : plan.action === "start"
+                      ? "Start Hermes"
+                      : "Set up Hermes"}
         </button>
         <button type="button" disabled={busy} onClick={onBack}>
           Back
@@ -693,6 +706,90 @@ export function HermesWelcomeModel({
           </div>
         </>
       )}
+    </>
+  );
+}
+
+export function HermesWelcomeProfiles({
+  installations,
+  installationId,
+  templateId,
+  managed,
+  busy,
+  onInstallation,
+  onTemplate,
+  onContinue,
+}: {
+  installations: any[];
+  installationId: string;
+  templateId: string;
+  managed: boolean;
+  busy: boolean;
+  onInstallation: (id: string) => void;
+  onTemplate: (id: string) => void;
+  onContinue: () => void;
+}) {
+  const selected = installations.find((i) => i.id === installationId);
+  return (
+    <>
+      <p role="status">Hermes is installed on this Mac.</p>
+      <p>
+        Create the Hub’s own <strong>hub-guide</strong> profile, then choose how
+        it answers. Its conversations and configuration belong to this Hub.
+      </p>
+      {!managed && installations.length > 1 && (
+        <label>
+          Hermes installation
+          <select
+            value={installationId}
+            disabled={busy}
+            onChange={(e) => onInstallation(e.target.value)}
+          >
+            {installations.map((i) => (
+              <option value={i.id} key={i.id}>
+                {i.commit ? i.commit.slice(0, 7) + " · " : ""}
+                {i.source || i.launcher}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+      {!managed && selected?.reason && (
+        <p role="alert" className="zn-setup__error">
+          {selected.reason}
+        </p>
+      )}
+      {!managed && selected?.compatible && (
+        <label>
+          Starting model settings
+          <select
+            value={templateId}
+            disabled={busy}
+            onChange={(e) => onTemplate(e.target.value)}
+          >
+            <option value="">Configure a new guide profile</option>
+            {selected.profiles.map((p: any) => (
+              <option key={p.id} value={p.id}>
+                Use model settings from {p.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      )}
+      {templateId && (
+        <p>
+          Only the model selection is reused. You’ll sign in separately for the
+          Hub guide; credentials and conversations are not copied.
+        </p>
+      )}
+      <button
+        type="button"
+        className="zn-setup__primary"
+        disabled={busy || (!managed && !selected?.compatible)}
+        onClick={onContinue}
+      >
+        {busy ? "Checking…" : "Create guide profile"}
+      </button>
     </>
   );
 }

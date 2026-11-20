@@ -18,13 +18,32 @@ export {
   PlanReview,
   setupSteps,
 } from "./HubSetup/HubSetup.js";
-export type { HermesEntryState, SetupStep, ConnectionListItem } from "./HubSetup/HubSetup.js";
+export type {
+  HermesEntryState,
+  SetupStep,
+  ConnectionListItem,
+} from "./HubSetup/HubSetup.js";
 
-export {WorkspaceConsole} from './WorkspaceConsole/WorkspaceConsole.js';
-export type {WorkspaceConsoleProps,WorkspaceProcess,WorkspaceSnapshot,WorkspacePlan} from './WorkspaceConsole/WorkspaceConsole.js';
+export { WorkspaceConsole } from "./WorkspaceConsole/WorkspaceConsole.js";
+export type {
+  WorkspaceConsoleProps,
+  WorkspaceProcess,
+  WorkspaceSnapshot,
+  WorkspacePlan,
+} from "./WorkspaceConsole/WorkspaceConsole.js";
 
 export { HermesModelPicker } from "./HubSetup/HermesModelPicker.js";
-export type { HermesBackendSelection, HermesModelOptions, HermesSignIn } from "./HubSetup/HermesModelPicker.js";
+export type {
+  HermesBackendSelection,
+  HermesModelOptions,
+  HermesSignIn,
+} from "./HubSetup/HermesModelPicker.js";
 
-export { HermesWelcomeFrame, HermesWelcomeReview, HermesWelcomeProgress, HermesWelcomeModel } from "./HubSetup/HermesWelcome.js";
+export {
+  HermesWelcomeFrame,
+  HermesWelcomeProfiles,
+  HermesWelcomeReview,
+  HermesWelcomeProgress,
+  HermesWelcomeModel,
+} from "./HubSetup/HermesWelcome.js";
 export type { WelcomeConnectionMode } from "./HubSetup/HermesWelcome.js";
