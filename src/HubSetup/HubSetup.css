@@ -539,3 +539,7 @@
 .zn-hermes-hud .zn-setup__heading { display: none; }
 .zn-hermes-hud .zn-setup__conversation { min-height: 30px; max-height: 230px; }
 @media (max-width: 600px) { .zn-hermes-hud { right: 12px; bottom: 12px; } }
+
+.zn-hermes-landing__recovery { width: min(360px, calc(100vw - 40px)); padding: 12px; background: #fff; color: #173360; font: 14px/1.5 system-ui, sans-serif; box-shadow: 4px 4px 0 #062879; }
+.zn-hermes-landing__recovery p { margin: 0 0 10px; }
+.zn-hermes-landing__recovery button { padding: 8px 12px; border: 1px solid #173360; background: #eef3ff; color: #173360; font: inherit; cursor: pointer; }

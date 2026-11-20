@@ -24,6 +24,8 @@ export function HermesSetupLanding({
   onCloseConfiguration,
   configurationBusy = false,
   continueDisabled = false,
+  unavailableReason,
+  onRetry,
 }: {
   state: HermesEntryState;
   onContinue: () => void;
@@ -32,6 +34,8 @@ export function HermesSetupLanding({
   onCloseConfiguration?: () => void;
   configurationBusy?: boolean;
   continueDisabled?: boolean;
+  unavailableReason?: string;
+  onRetry?: () => void;
 }) {
   const pending = state === "checking" || state === "unavailable";
   const dialog = useRef<HTMLDialogElement>(null);
@@ -59,6 +63,12 @@ export function HermesSetupLanding({
           >
             Configure
           </button>
+        )}
+        {state === "unavailable" && (
+          <div className="zn-hermes-landing__recovery" role="alert">
+            <p>{unavailableReason || "The setup controller could not be reached. Try checking again."}</p>
+            {onRetry && <button type="button" onClick={onRetry}>Retry setup check</button>}
+          </div>
         )}
       </div>
       <dialog
