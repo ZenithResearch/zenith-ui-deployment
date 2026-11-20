@@ -25,3 +25,6 @@ export type {WorkspaceConsoleProps,WorkspaceProcess,WorkspaceSnapshot,WorkspaceP
 
 export { HermesModelPicker } from "./HubSetup/HermesModelPicker.js";
 export type { HermesBackendSelection, HermesModelOptions, HermesSignIn } from "./HubSetup/HermesModelPicker.js";
+
+export { HermesWelcomeFrame, HermesWelcomeReview, HermesWelcomeProgress, HermesWelcomeModel } from "./HubSetup/HermesWelcome.js";
+export type { WelcomeConnectionMode } from "./HubSetup/HermesWelcome.js";

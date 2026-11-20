@@ -25,12 +25,12 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "937265b6f9a35710774f0f86b7b6ffc5da7518ea4f765a9a005e7d67a64cecab",
+      "sha256": "2ed42d3d3bcdbf44bc8f441abfe29c47e3cd9ca010cb75c857c69eded24b0654",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "ed0abd9bb67d8f3a748d19fcb429086bed21cb4dd3dabdd30eb224b39b5e3e04",
+      "sha256": "bfb2ce6b55ec5a39074838013162de8c583bc9dfcca9a7abefb572b35c22ddbd",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
@@ -42,6 +42,11 @@
       "path": "src/HubSetup/HermesModelPicker.tsx",
       "origin": "Native Hermes provider, guided local-model and existing-server setup presentation",
       "sha256": "c8ef88329b77d47de81de08aeccd3939fff42a714d931b8cc5121295aff18112"
+    },
+    {
+      "path": "src/HubSetup/HermesWelcome.tsx",
+      "origin": "Welcome-screen Hermes installation and model onboarding",
+      "sha256": "4004e534e72f457269c9ac9a04f54f577cf3d8f2b7087322ed91eea12d62a87c"
     }
   ]
 }

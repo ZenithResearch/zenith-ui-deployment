@@ -326,11 +326,12 @@ export function SourceDetails({
     </details>
   );
 }
-export function HermesChatHud({ children, connected }: { children: ReactNode; connected: boolean }) {
+export function HermesChatHud({ children, connected, openSignal = 0 }: { children: ReactNode; connected: boolean; openSignal?: number }) {
   const [open, setOpen] = useState(false);
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const hasOpened = useRef(false);
+  useEffect(() => { if (openSignal > 0) setOpen(true); }, [openSignal]);
   useEffect(() => {
     if (open) {
       hasOpened.current = true;

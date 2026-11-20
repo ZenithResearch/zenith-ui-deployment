@@ -543,3 +543,23 @@
 .zn-hermes-landing__recovery { width: min(360px, calc(100vw - 40px)); padding: 12px; background: #fff; color: #173360; font: 14px/1.5 system-ui, sans-serif; box-shadow: 4px 4px 0 #062879; }
 .zn-hermes-landing__recovery p { margin: 0 0 10px; }
 .zn-hermes-landing__recovery button { padding: 8px 12px; border: 1px solid #173360; background: #eef3ff; color: #173360; font: inherit; cursor: pointer; }
+
+.zn-welcome { min-height: 100svh; background: #123ab0; padding-bottom: 110px; color: #182b24; }
+.zn-welcome__art { height: clamp(200px, 38vw, 390px); background: #123ab0 url("./assets/zenith-cloud-reveal-castalia-bitmap-v1.png") center 53% / cover no-repeat; image-rendering: pixelated; }
+.zn-setup.zn-welcome__panel { display: block; min-height: 0; width: min(660px, calc(100% - 32px)); margin: -4px auto 0; padding: clamp(22px, 4vw, 38px); background: #fff; border-radius: 16px; box-shadow: 0 14px 50px #00184b40; box-sizing: border-box; }
+.zn-welcome__panel h1 { font-size: clamp(25px, 4vw, 34px); line-height: 1.2; letter-spacing: -0.7px; margin: 10px 0 12px; }
+.zn-welcome__eyebrow { font-size: 11px; font-weight: 650; letter-spacing: 1.5px; color: #4c645a; }
+.zn-welcome__description { font-size: 17px; line-height: 1.5; color: #5c6e64; margin-bottom: 24px; }
+.zn-welcome__panel input, .zn-welcome__panel select { width: 100%; box-sizing: border-box; }
+.zn-welcome__panel pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
+.zn-welcome__panel progress { width: 100%; height: 9px; accent-color: #295ab3; }
+.zn-welcome__facts { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 8px 16px; font-size: 14px; }
+.zn-welcome__facts dt { color: #5b6e64; } .zn-welcome__facts dd { margin: 0; overflow-wrap: anywhere; }
+.zn-welcome__note { font-size: 13px; color: #5c6e64; }
+.zn-welcome__choices { display: grid; gap: 10px; }
+.zn-welcome__choices button { display: grid; text-align: left; gap: 5px; width: 100%; }
+.zn-welcome__choices span { font-size: 13px; color: #5c6e64; }
+.zn-welcome__panel .zn-welcome__text-button { padding: 3px 0; border: 0; text-decoration: underline; background: transparent; margin-bottom: 16px; }
+.zn-welcome__model, .zn-welcome__signin { margin: 14px 0; padding: 16px; background: #f5f8ff; border: 1px solid #d6dfed; border-radius: 8px; }
+.zn-welcome__signin button { margin-right: 8px; }
+@media (max-width: 480px) { .zn-welcome__facts { grid-template-columns: 1fr; gap: 4px; } .zn-welcome__facts dd { margin-bottom: 8px; } }

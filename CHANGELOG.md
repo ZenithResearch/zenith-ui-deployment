@@ -20,6 +20,7 @@
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added
+- Add an inline welcome canvas for source-install review, truthful progress and progressive Hermes model setup — onboarding can stay on one screen through the first chat without wrapping the older wizard.
 - Add a floating, nonmodal Hermes chat with minimize and keyboard focus handling — the configured guide can remain available on the welcome screen and throughout the Hub.
 - Add status-aware service connection rows — saved and pending connections can be shown without presenting a duplicate connect action.
 - Add a controlled native-provider and open-model picker — Hermes account sign-in, private API-key entry, machine-sized suggestions and existing model servers can share the quick configuration surface.
