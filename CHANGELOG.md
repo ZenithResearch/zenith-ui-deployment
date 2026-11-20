@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- Refresh expired or blocked welcome reviews in place — owners can repair prerequisites or resume reading without navigating away or repeatedly applying a stale plan.
 - Show a controller-check error and retry on the Hermes welcome screen — users can recover from an unavailable setup instead of facing an unexplained disabled action.
 - Clear inferred context and credential references when switching to an existing model server — a local-model preset cannot silently claim a different server’s capacity or carry over its authentication.
 
@@ -11,6 +12,7 @@
 - Package and export guided setup styles, and verify the current workspace/setup source hashes — downstream builds receive the complete controls and provenance checks cover the actual canonical components.
 
 ### Changed
+- Show the official source repository directly in the welcome installation review — owners can see exactly where Hermes comes from before installing.
 - Guide connected accounts to an automatically loaded model picker with Hermes’s recommended default and clear activation copy — sign-in no longer ends in an unexplained blank model field, and approved device codes are hidden.
 - Use the Hermes provider dropdown as the single provider selector — removes the duplicate shortcut row and keeps native provider naming consistent.
 
