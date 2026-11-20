@@ -11,6 +11,7 @@
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added
+- Add a cloud-marked Hermes landing page with one state-aware action — hosts can offer installation or configuration without exposing setup controls before the user chooses.
 - Add the controlled empty workspace console and separate style export — lightweight Hub can offer process authoring without preloading a SOP or owning Runtime state.
 
 - Add reusable guided Hub setup, component selection, explicit state facts, reviewed plans and a connected Hermes chat surface — users can progress through environment setup without interpreting a flat deployment dashboard.

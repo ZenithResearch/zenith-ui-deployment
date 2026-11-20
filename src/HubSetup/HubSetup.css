@@ -371,3 +371,63 @@
     flex-wrap: wrap;
   }
 }
+
+.zn-hermes-landing {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  color: #e7f4ef;
+  background: radial-gradient(ellipse at 50% 42%, #19332e 0%, #11231f 34%, #0b1715 76%);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.zn-hermes-landing__lockup {
+  display: grid;
+  justify-items: center;
+}
+.zn-hermes-landing__mark {
+  display: block;
+  width: clamp(7.5rem, 17vw, 10rem);
+  height: auto;
+}
+.zn-hermes-landing__cloud {
+  fill: #183930;
+  stroke: #7cb9a7;
+  stroke-width: 1.6;
+}
+.zn-hermes-landing h1 {
+  margin: 0.5rem 0 2.5rem;
+  font-size: clamp(3.75rem, 8vw, 6rem);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.065em;
+}
+.zn-hermes-landing button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: #9bfbe3;
+  color: #0d3027;
+  font: 600 1rem/1.3 system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+}
+.zn-hermes-landing button:enabled:hover {
+  background: #baffeb;
+}
+.zn-hermes-landing button:focus-visible {
+  outline: 3px solid #e7fff9;
+  outline-offset: 5px;
+}
+.zn-hermes-landing button:disabled {
+  background: #294039;
+  color: #bfd4cd;
+  cursor: default;
+}

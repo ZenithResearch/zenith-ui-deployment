@@ -5,6 +5,7 @@ export type {
   DeploymentMonitorProps,
 } from "./DeploymentMonitor/DeploymentMonitor.js";
 export {
+  HermesSetupLanding,
   SetupShell,
   SetupIntro,
   SetupPanel,
@@ -15,7 +16,7 @@ export {
   PlanReview,
   setupSteps,
 } from "./HubSetup/HubSetup.js";
-export type { SetupStep } from "./HubSetup/HubSetup.js";
+export type { HermesEntryState, SetupStep } from "./HubSetup/HubSetup.js";
 
 export {WorkspaceConsole} from './WorkspaceConsole/WorkspaceConsole.js';
 export type {WorkspaceConsoleProps,WorkspaceProcess,WorkspaceSnapshot,WorkspacePlan} from './WorkspaceConsole/WorkspaceConsole.js';
