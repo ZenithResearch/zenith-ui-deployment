@@ -316,16 +316,49 @@ export function SourceDetails({
     </details>
   );
 }
+export function HermesChatHud({ children, connected }: { children: ReactNode; connected: boolean }) {
+  const [open, setOpen] = useState(false);
+  const launcher = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLElement>(null);
+  const hasOpened = useRef(false);
+  useEffect(() => {
+    if (open) {
+      hasOpened.current = true;
+      const input = panel.current?.querySelector<HTMLTextAreaElement>("textarea:not(:disabled)");
+      (input || panel.current)?.focus();
+    } else if (hasOpened.current) launcher.current?.focus();
+  }, [open]);
+  return (
+    <div className="zn-setup zn-hermes-hud">
+      <button ref={launcher} type="button" className="zn-hermes-hud__launcher" hidden={open}
+        aria-label="Open Hermes chat" aria-expanded={open} onClick={() => setOpen(true)}>
+        <span aria-hidden="true" className={"zn-hermes-hud__dot" + (connected ? " is-connected" : "")} />
+        <strong>Hermes</strong><span>{connected ? "Chat" : "Setup help"}</span>
+      </button>
+      <section ref={panel} hidden={!open} tabIndex={-1} role="dialog" aria-modal="false" aria-label="Hermes chat"
+        className="zn-hermes-hud__panel" onKeyDown={(event) => {
+          if (event.key === "Escape") { event.preventDefault(); setOpen(false); }
+        }}>
+        <div className="zn-hermes-hud__header"><h2>Hermes</h2>
+          <button type="button" aria-label="Minimize Hermes chat" onClick={() => setOpen(false)}>Minimize</button>
+        </div>
+        <div className="zn-hermes-hud__body">{children}</div>
+      </section>
+    </div>
+  );
+}
 export function GuideChat({
   available,
   busy,
   onSend,
   status,
+  promptLabel = "Your setup question",
 }: {
   available: boolean;
   busy: boolean;
   onSend: (text: string) => Promise<string>;
   status: string;
+  promptLabel?: string;
 }) {
   const [message, setMessage] = useState(""),
     [turns, setTurns] = useState<{ role: string; text: string }[]>([]),
@@ -365,7 +398,7 @@ export function GuideChat({
       </div>
       <form onSubmit={submit}>
         <label>
-          Your setup question
+          {promptLabel}
           <textarea
             rows={2}
             maxLength={4000}

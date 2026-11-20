@@ -14,6 +14,7 @@ export {
   StateFacts,
   SourceDetails,
   GuideChat,
+  HermesChatHud,
   PlanReview,
   setupSteps,
 } from "./HubSetup/HubSetup.js";
