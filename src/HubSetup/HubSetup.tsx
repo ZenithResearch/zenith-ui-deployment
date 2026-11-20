@@ -23,6 +23,7 @@ export function HermesSetupLanding({
   configuration,
   onCloseConfiguration,
   configurationBusy = false,
+  continueDisabled = false,
 }: {
   state: HermesEntryState;
   onContinue: () => void;
@@ -30,6 +31,7 @@ export function HermesSetupLanding({
   configuration?: ReactNode;
   onCloseConfiguration?: () => void;
   configurationBusy?: boolean;
+  continueDisabled?: boolean;
 }) {
   const pending = state === "checking" || state === "unavailable";
   const dialog = useRef<HTMLDialogElement>(null);
@@ -45,7 +47,7 @@ export function HermesSetupLanding({
     <main className="zn-hermes-landing">
       <h1>Hermes</h1>
       <div className="zn-hermes-landing__action" aria-live="polite">
-        <button type="button" disabled={pending} onClick={onContinue}>
+        <button type="button" disabled={pending || continueDisabled} onClick={onContinue}>
           {hermesEntryLabels[state]}
         </button>
         {(state === "configure" || configurationOpen) && onConfigure && (

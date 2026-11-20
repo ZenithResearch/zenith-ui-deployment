@@ -25,18 +25,23 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "d14706a3b436b52155f59edb1120a84207596e40eee33773fe1c12584d67f13f",
+      "sha256": "865ee8caa54d2ff03dc692e0edbecf8a81f3c4d9b896c8e87f098a107c421953",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "f9b907b02ec94274ae0fb5e21dd239ae59e441e58f8f82288b3e6ada15e8e823",
+      "sha256": "918a38f46f5ace31885ea46471a8a36087e19417634f70419fcc83fbed772ea2",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/assets/zenith-cloud-reveal-castalia-bitmap-v1.png",
       "sha256": "476fa2526cab00074223fc292d6980de55c144f43e91c9ad069c01dd205a2f35",
       "origin": "InvestorDeck/src/presentation-assets/founder-thesis-v0_39-bitmap-title/zenith-cloud-reveal-castalia-bitmap-v1.png"
+    },
+    {
+      "path": "src/HubSetup/HermesModelPicker.tsx",
+      "origin": "Native Hermes provider, guided local-model and existing-server setup presentation",
+      "sha256": "3d1063219cd86c11be16d460f4e166e90ffa883b6b7863b97f1b718760b72873"
     }
   ]
 }

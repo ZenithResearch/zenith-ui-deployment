@@ -20,3 +20,6 @@ export type { HermesEntryState, SetupStep } from "./HubSetup/HubSetup.js";
 
 export {WorkspaceConsole} from './WorkspaceConsole/WorkspaceConsole.js';
 export type {WorkspaceConsoleProps,WorkspaceProcess,WorkspaceSnapshot,WorkspacePlan} from './WorkspaceConsole/WorkspaceConsole.js';
+
+export { HermesModelPicker } from "./HubSetup/HermesModelPicker.js";
+export type { HermesBackendSelection, HermesModelOptions, HermesSignIn } from "./HubSetup/HermesModelPicker.js";
