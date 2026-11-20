@@ -41,7 +41,7 @@
     {
       "path": "src/HubSetup/HermesModelPicker.tsx",
       "origin": "Native Hermes provider, guided local-model and existing-server setup presentation",
-      "sha256": "3d1063219cd86c11be16d460f4e166e90ffa883b6b7863b97f1b718760b72873"
+      "sha256": "ece7b25cbfba0ae7e84b7014995b48b22f39b7e17cdeac8196a40440a8bc7873"
     }
   ]
 }

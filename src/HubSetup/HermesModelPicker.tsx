@@ -65,7 +65,7 @@ export function HermesModelPicker({
       <div className="zn-model-picker__modes" role="group" aria-label="Model connection type">
         <button type="button" aria-pressed={mode === "provider"} disabled={disabled} onClick={() => pickProvider("anthropic")}>Cloud provider</button>
         <button type="button" aria-pressed={mode === "local"} disabled={disabled} onClick={() => pickLocal(options?.localModels.find((m) => m.recommended)?.id || options?.localModels[0]?.id || "")}>Run an open model</button>
-        <button type="button" aria-pressed={mode === "existing"} disabled={disabled} onClick={() => onChange({ providerId: "custom", backendKind: "local", modelName: "", localModelId: undefined })}>Existing model server</button>
+        <button type="button" aria-pressed={mode === "existing"} disabled={disabled} onClick={() => onChange({ providerId: "custom", backendKind: "local", modelName: "", localModelId: undefined, modelEndpoint: undefined, contextLength: undefined, secretRef: undefined })}>Existing model server</button>
       </div>
       {loading && <p role="status">Checking Hermes…</p>}
       {error && <p role="alert" className="zn-setup__error">{error}</p>}
@@ -141,7 +141,7 @@ export function HermesModelPicker({
         <>
           <p>Connect an OpenAI-compatible server you already run, such as Ollama, LM Studio or llama.cpp.</p>
           <label>Model server address
-            <input value={value.modelEndpoint || ""} placeholder="http://127.0.0.1:11434" disabled={disabled} onChange={(e) => onChange({ providerId: "custom", modelEndpoint: e.target.value, backendKind: e.target.value.startsWith("https:") ? "remote" : "local" })} />
+            <input value={value.modelEndpoint || ""} placeholder="http://127.0.0.1:11434" disabled={disabled} onChange={(e) => onChange({ providerId: "custom", modelEndpoint: e.target.value, secretRef: undefined, backendKind: e.target.value.startsWith("https:") ? "remote" : "local" })} />
           </label>
           <label>Server credential reference (optional)
             <input value={value.secretRef || ""} disabled={disabled} placeholder="An owner-configured secret reference" onChange={(e) => onChange({ secretRef: e.target.value || undefined })} />

@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Fixed
+- Clear inferred context and credential references when switching to an existing model server — a local-model preset cannot silently claim a different server’s capacity or carry over its authentication.
 
 - Retain the secondary configuration control during on-page reviews — closing the native settings dialog restores keyboard focus after an asynchronous review.
 
