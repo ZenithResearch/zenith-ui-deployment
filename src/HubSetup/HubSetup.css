@@ -508,9 +508,8 @@
 }
 
 .zn-model-picker h2 { margin: 16px 0; }
-.zn-model-picker__modes, .zn-model-picker__providers { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
+.zn-model-picker__modes { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
 .zn-model-picker [aria-pressed="true"] { border-color: #2552a5; background: #eaf0ff; color: #123c8a; }
-.zn-model-picker__providers button { flex: 1 0 90px; }
 .zn-model-picker__note { font-size: 12px; }
 .zn-model-picker__suggestions { display: grid; gap: 12px; }
 .zn-model-picker__suggestion { padding: 16px; border: 1px solid #ccd7e7; background: #fafcff; }

@@ -30,7 +30,7 @@
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "918a38f46f5ace31885ea46471a8a36087e19417634f70419fcc83fbed772ea2",
+      "sha256": "2b43dbd120bc9d7d4e719f7603a5f94f2864f35ffacbb4fc83d3b7eb296d50dc",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
@@ -41,7 +41,7 @@
     {
       "path": "src/HubSetup/HermesModelPicker.tsx",
       "origin": "Native Hermes provider, guided local-model and existing-server setup presentation",
-      "sha256": "ece7b25cbfba0ae7e84b7014995b48b22f39b7e17cdeac8196a40440a8bc7873"
+      "sha256": "75c7a7bf7b8757f4ac4586571e0c2c48e444838128c45fce31cfae8182d6a411"
     }
   ]
 }

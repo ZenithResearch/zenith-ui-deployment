@@ -10,6 +10,7 @@
 - Package and export guided setup styles, and verify the current workspace/setup source hashes — downstream builds receive the complete controls and provenance checks cover the actual canonical components.
 
 ### Changed
+- Use the Hermes provider dropdown as the single provider selector — removes the duplicate shortcut row and keeps native provider naming consistent.
 
 - Make Continue primary for installed Hermes and offer secondary on-page configuration — users can advance without entering settings, while quick settings retain keyboard focus and the landing context.
 

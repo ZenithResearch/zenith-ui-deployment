@@ -72,11 +72,6 @@ export function HermesModelPicker({
       {!options && <button type="button" disabled={disabled || loading} onClick={onLoadOptions}>Load Hermes provider and model options</button>}
       {mode === "provider" && options && (
         <>
-          <div className="zn-model-picker__providers" role="group" aria-label="Popular providers">
-            {[["anthropic", "Claude"], ["openai-codex", "ChatGPT"], ["xai-oauth", "Grok"], ["gemini", "Gemini"]].filter(([id]) => options.providers.some((p) => p.id === id)).map(([id, label]) => (
-              <button type="button" key={id} disabled={disabled} aria-pressed={value.providerId === id} onClick={() => pickProvider(id)}>{label}</button>
-            ))}
-          </div>
           <label>Hermes provider
             <select value={value.providerId || ""} disabled={disabled} onChange={(e) => pickProvider(e.target.value)}>
               {options.providers.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
