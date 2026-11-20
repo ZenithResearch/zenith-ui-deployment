@@ -11,7 +11,7 @@
       "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
     }
   ],
-  "scope": "Deployment monitor, empty workspace and guided setup presentation only. Private gallery, fonts, decks, imagery and Git history remain excluded.",
+  "scope": "Deployment monitor, empty workspace and guided setup presentation, including the selected Castalia cloud-reveal bitmap. Private gallery, fonts, decks, other imagery and Git history remain excluded.",
   "authored_files": [
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.css",
@@ -25,13 +25,18 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "ead1e580bd9bbde20ecd783768d2c2279bf51f17585966bc027b3284a9f47baa",
+      "sha256": "8ef0b3d73189d2e59de42669c4aa3bddd1a19056598bf82031533993ffca3141",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "f958cf2dae0e1c2cfab23f535b24779ad26aa600f573e70b1eae9c378fbc018d",
+      "sha256": "95f46b3ed867ed05c3304fed177716a8fc07cfb782c8a910e0b27458c8144dc5",
       "origin": "guided component selection, reviewed plans and local guide presentation"
+    },
+    {
+      "path": "src/HubSetup/assets/zenith-cloud-reveal-castalia-bitmap-v1.png",
+      "sha256": "476fa2526cab00074223fc292d6980de55c144f43e91c9ad069c01dd205a2f35",
+      "origin": "InvestorDeck/src/presentation-assets/founder-thesis-v0_39-bitmap-title/zenith-cloud-reveal-castalia-bitmap-v1.png"
     }
   ]
 }

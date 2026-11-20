@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Package the original Castalia cloud-reveal artwork with the Hermes entry — users see the requested pixel-art Zenith identity across desktop and portrait layouts.
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added

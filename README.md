@@ -2,8 +2,9 @@
 
 Public source baseline of the presentation component used by
 [Zenith Hub lightweight](https://github.com/ZenithResearch/zenith-hub-lightweight).
-The private design-gallery history, commercial fonts, investor decks and imagery
-are not included. This is the deployment component, not the entire ZenithUI gallery.
+The Hermes entry includes the owner-selected Castalia cloud-reveal bitmap, recorded
+in `provenance.json`. Other investor-deck imagery, private design-gallery history,
+commercial fonts and decks are not included. This is the deployment component.
 
 ```sh
 npm ci

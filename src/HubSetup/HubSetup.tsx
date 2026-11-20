@@ -26,31 +26,11 @@ export function HermesSetupLanding({
   const pending = state === "checking" || state === "unavailable";
   return (
     <main className="zn-hermes-landing">
-      <div className="zn-hermes-landing__lockup">
-        <svg
-          className="zn-hermes-landing__mark"
-          viewBox="0 0 160 112"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <path
-            className="zn-hermes-landing__cloud"
-            d="M42 92C23.8 92 11 80.9 11 65.6c0-14.6 10.8-25.8 25.5-27.4C42.2 20.3 58.8 9 77.1 9c18.7 0 35 11.3 41.7 27.9 17 1.5 30.2 12.9 30.2 28.9 0 15.8-12.4 26.2-30.2 26.2Z"
-          />
-          {/* Zenith landing mark, from zenith-landing's landing/LogoSVG.tsx. */}
-          <path
-            transform="translate(43.2 14.2) scale(2.3)"
-            fill="#9bfbe3"
-            d="M17.0466 8H14.2939L10.206 13.2272V16H14.2939L10.206 21.2273V24H21.794V21.9372H12.3853L17.0466 16H21.794V13.9372H12.3853L17.0466 8Z"
-          />
-        </svg>
-        <h1>Hermes</h1>
-        <div aria-live="polite">
-          <button type="button" disabled={pending} onClick={onContinue}>
-            {hermesEntryLabels[state]}
-            {!pending && <span aria-hidden="true">→</span>}
-          </button>
-        </div>
+      <h1>Hermes</h1>
+      <div className="zn-hermes-landing__action" aria-live="polite">
+        <button type="button" disabled={pending} onClick={onContinue}>
+          {hermesEntryLabels[state]}
+        </button>
       </div>
     </main>
   );
