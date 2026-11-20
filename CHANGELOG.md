@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Package and export guided setup styles, and verify the current workspace/setup source hashes — downstream builds receive the complete controls and provenance checks cover the actual canonical components.
+
 ### Changed
 
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.

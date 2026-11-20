@@ -11,7 +11,7 @@
       "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
     }
   ],
-  "scope": "Deployment monitor and empty workspace presentation only. Private gallery, fonts, decks, imagery and Git history remain excluded.",
+  "scope": "Deployment monitor, empty workspace and guided setup presentation only. Private gallery, fonts, decks, imagery and Git history remain excluded.",
   "authored_files": [
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.css",
@@ -20,8 +20,18 @@
     },
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.tsx",
-      "sha256": "2d0291c837312fae0ec7a9fcc54066a81fd5f5d6bf336248d33567c37e2ab684",
+      "sha256": "9f899978ddeba9c48c476bdba1d22787041c4e169fd9258220172da2656a3464",
       "origin": "native empty-workspace authoring view"
+    },
+    {
+      "path": "src/HubSetup/HubSetup.tsx",
+      "sha256": "8dc3e3203503506b9518b679b25b8b2da795bf71a41f0bf08fc27166c49443c7",
+      "origin": "guided component selection, reviewed plans and local guide presentation"
+    },
+    {
+      "path": "src/HubSetup/HubSetup.css",
+      "sha256": "07bb31f3d30cf5471c0cbdbb9a9efbbeab2a2c928afedec1076ff96fe4f55199",
+      "origin": "guided component selection, reviewed plans and local guide presentation"
     }
   ]
 }
