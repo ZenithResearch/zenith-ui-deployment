@@ -520,3 +520,8 @@
 .zn-model-picker__model-row { margin-top: 20px; }
 .zn-model-picker a { overflow-wrap: anywhere; }
 .zn-model-picker form { margin-bottom: 12px; }
+
+.zn-setup__connections { list-style: none; padding: 0; margin: 20px 0 0; }
+.zn-setup__connections li { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 0; border-top: 1px solid #dbe3dc; }
+.zn-setup__connections li > div { flex: 1 1 240px; min-width: 0; }
+.zn-setup__connection-endpoint, .zn-setup__connections small { display: block; overflow-wrap: anywhere; margin-top: 4px; color: #66766e; }

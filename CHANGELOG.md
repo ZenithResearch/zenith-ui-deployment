@@ -19,6 +19,7 @@
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added
+- Add status-aware service connection rows — saved and pending connections can be shown without presenting a duplicate connect action.
 - Add a controlled native-provider and open-model picker — Hermes account sign-in, private API-key entry, machine-sized suggestions and existing model servers can share the quick configuration surface.
 - Add a cloud-marked Hermes landing page with one state-aware action — hosts can offer installation or configuration without exposing setup controls before the user chooses.
 - Add the controlled empty workspace console and separate style export — lightweight Hub can offer process authoring without preloading a SOP or owning Runtime state.

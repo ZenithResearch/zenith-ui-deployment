@@ -234,6 +234,37 @@ export function ComponentChoice({
     </section>
   );
 }
+export type ConnectionListItem = {
+  id: string;
+  name: string;
+  endpoint: string;
+  status: string;
+  detail?: string;
+  action?: "choose" | "manage";
+};
+export function ConnectionList({ items, disabled, onChoose, onManage }: {
+  items: ConnectionListItem[];
+  disabled: boolean;
+  onChoose: (item: ConnectionListItem) => void;
+  onManage: (item: ConnectionListItem) => void;
+}) {
+  return (
+    <ul className="zn-setup__connections" aria-label="Service connections">
+      {items.map((item) => (
+        <li key={item.id}>
+          <div>
+            <strong>{item.name}</strong>
+            <span className="zn-setup__connection-endpoint">{item.endpoint}</span>
+            {item.detail && <small>{item.detail}</small>}
+          </div>
+          <span className="zn-setup__badge">{item.status}</span>
+          {item.action === "choose" && <button type="button" disabled={disabled} onClick={() => onChoose(item)}>Choose this connection</button>}
+          {item.action === "manage" && <button type="button" disabled={disabled} onClick={() => onManage(item)}>Manage connection</button>}
+        </li>
+      ))}
+    </ul>
+  );
+}
 export function StateFacts({
   facts,
 }: {

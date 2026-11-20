@@ -10,13 +10,14 @@ export {
   SetupIntro,
   SetupPanel,
   ComponentChoice,
+  ConnectionList,
   StateFacts,
   SourceDetails,
   GuideChat,
   PlanReview,
   setupSteps,
 } from "./HubSetup/HubSetup.js";
-export type { HermesEntryState, SetupStep } from "./HubSetup/HubSetup.js";
+export type { HermesEntryState, SetupStep, ConnectionListItem } from "./HubSetup/HubSetup.js";
 
 export {WorkspaceConsole} from './WorkspaceConsole/WorkspaceConsole.js';
 export type {WorkspaceConsoleProps,WorkspaceProcess,WorkspaceSnapshot,WorkspacePlan} from './WorkspaceConsole/WorkspaceConsole.js';
