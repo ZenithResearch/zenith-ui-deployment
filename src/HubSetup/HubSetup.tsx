@@ -48,10 +48,11 @@ export function HermesSetupLanding({
         <button type="button" disabled={pending} onClick={onContinue}>
           {hermesEntryLabels[state]}
         </button>
-        {state === "configure" && onConfigure && (
+        {(state === "configure" || configurationOpen) && onConfigure && (
           <button
             type="button"
             className="zn-hermes-landing__configure"
+            disabled={pending}
             onClick={onConfigure}
           >
             Configure

@@ -4,6 +4,8 @@
 
 ### Fixed
 
+- Retain the secondary configuration control during on-page reviews — closing the native settings dialog restores keyboard focus after an asynchronous review.
+
 - Package and export guided setup styles, and verify the current workspace/setup source hashes — downstream builds receive the complete controls and provenance checks cover the actual canonical components.
 
 ### Changed
