@@ -8,6 +8,8 @@
 
 ### Changed
 
+- Make Continue primary for installed Hermes and offer secondary on-page configuration — users can advance without entering settings, while quick settings retain keyboard focus and the landing context.
+
 - Package the original Castalia cloud-reveal artwork with the Hermes entry — users see the requested pixel-art Zenith identity across desktop and portrait layouts.
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 

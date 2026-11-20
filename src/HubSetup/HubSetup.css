@@ -397,8 +397,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
 }
-.zn-hermes-landing button {
+.zn-hermes-landing__action > button {
   min-height: 48px;
   padding: 0.75rem 1.35rem;
   border: 2px solid #082f93;
@@ -410,21 +413,96 @@
   white-space: nowrap;
   cursor: pointer;
 }
-.zn-hermes-landing button:enabled:hover {
+.zn-hermes-landing__action > button:enabled:hover {
   background: #e2edff;
 }
-.zn-hermes-landing button:focus-visible {
+.zn-hermes-landing__action > button:focus-visible {
   outline: 3px solid white;
   outline-offset: 4px;
 }
-.zn-hermes-landing button:disabled {
+.zn-hermes-landing__action > button:disabled {
   background: #d6e4fd;
   color: #374f7e;
   cursor: default;
 }
 @media (max-aspect-ratio: 1/1) {
   .zn-hermes-landing__action {
-    top: calc(50% + var(--scene-width) * 0.282 + 1.5rem);
+    top: min(calc(50% + var(--scene-width) * 0.282 + 1.5rem), calc(100% - 7rem));
     transform: translateX(-50%);
   }
+}
+
+.zn-hermes-landing__action > .zn-hermes-landing__configure {
+  min-height: 32px;
+  padding: 0.25rem 0.75rem;
+  border: 0;
+  background: transparent;
+  color: white;
+  box-shadow: none;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+.zn-hermes-landing__action > .zn-hermes-landing__configure:enabled:hover {
+  background: #002c87;
+}
+.zn-hermes-landing__configuration {
+  position: fixed;
+  width: min(620px, calc(100vw - 2rem));
+  max-height: calc(100svh - 2rem);
+  margin: auto;
+  padding: 24px;
+  overflow: auto;
+  border: 2px solid #082f93;
+  border-radius: 0;
+  background: #fff;
+  color: #172622;
+  box-shadow: 8px 8px 0 #062879;
+  font: 14px/1.5 system-ui, -apple-system, sans-serif;
+  image-rendering: auto;
+}
+.zn-hermes-landing__configuration::backdrop {
+  background: rgb(0 18 68 / 65%);
+}
+.zn-hermes-landing__configuration-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.zn-hermes-landing__configuration-heading h2 {
+  margin: 0;
+  font-size: 20px;
+}
+.zn-hermes-landing__configuration-heading button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #bbc8dc;
+  background: white;
+  color: #092f93;
+  cursor: pointer;
+}
+.zn-hermes-landing__configuration-body {
+  display: block;
+  min-height: 0;
+  background: white;
+  font-size: 14px;
+}
+.zn-hermes-landing__configuration-body .zn-setup__panel {
+  padding: 0;
+  border: 0;
+  margin-bottom: 16px;
+}
+.zn-hermes-landing__configuration-body .zn-setup__intro {
+  padding: 0 0 16px;
+}
+.zn-hermes-landing__configuration-body .zn-setup__grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.zn-hermes-landing__configuration-body pre,
+.zn-hermes-landing__configuration-body code {
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }

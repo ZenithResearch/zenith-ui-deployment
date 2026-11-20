@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, type ReactNode } from "react";
+import React, { useEffect, useRef, useState, type ReactNode } from "react";
 import "./HubSetup.css";
 export type HermesEntryState =
   | "install"
@@ -10,7 +10,7 @@ export type HermesEntryState =
 
 const hermesEntryLabels: Record<HermesEntryState, string> = {
   install: "Install Hermes",
-  configure: "Configure Hermes",
+  configure: "Continue",
   recover: "Review Hermes setup",
   checking: "Checking Hermes…",
   unavailable: "Setup unavailable",
@@ -19,11 +19,28 @@ const hermesEntryLabels: Record<HermesEntryState, string> = {
 export function HermesSetupLanding({
   state,
   onContinue,
+  onConfigure,
+  configuration,
+  onCloseConfiguration,
+  configurationBusy = false,
 }: {
   state: HermesEntryState;
   onContinue: () => void;
+  onConfigure?: () => void;
+  configuration?: ReactNode;
+  onCloseConfiguration?: () => void;
+  configurationBusy?: boolean;
 }) {
   const pending = state === "checking" || state === "unavailable";
+  const dialog = useRef<HTMLDialogElement>(null);
+  const configurationOpen = Boolean(configuration);
+  useEffect(() => {
+    const node = dialog.current;
+    if (!node) return;
+    if (configurationOpen && !node.open) node.showModal();
+    if (!configurationOpen && node.open) node.close();
+    return () => { if (node.open) node.close(); };
+  }, [configurationOpen]);
   return (
     <main className="zn-hermes-landing">
       <h1>Hermes</h1>
@@ -31,7 +48,40 @@ export function HermesSetupLanding({
         <button type="button" disabled={pending} onClick={onContinue}>
           {hermesEntryLabels[state]}
         </button>
+        {state === "configure" && onConfigure && (
+          <button
+            type="button"
+            className="zn-hermes-landing__configure"
+            onClick={onConfigure}
+          >
+            Configure
+          </button>
+        )}
       </div>
+      <dialog
+        ref={dialog}
+        className="zn-hermes-landing__configuration"
+        aria-labelledby="hermes-configuration-title"
+        onCancel={(event) => {
+          event.preventDefault();
+          if (!configurationBusy) onCloseConfiguration?.();
+        }}
+      >
+        <div className="zn-hermes-landing__configuration-heading">
+          <h2 id="hermes-configuration-title">Configure Hermes</h2>
+          <button
+            type="button"
+            disabled={configurationBusy}
+            aria-label="Close Hermes configuration"
+            onClick={onCloseConfiguration}
+          >
+            Close
+          </button>
+        </div>
+        <div className="zn-setup zn-hermes-landing__configuration-body">
+          {configuration}
+        </div>
+      </dialog>
     </main>
   );
 }
