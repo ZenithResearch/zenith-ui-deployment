@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./HubSetup.css";
 
 export type HermesBackendSelection = {
@@ -21,7 +21,7 @@ export type HermesSignIn = {
   session_id: string; providerId: string; status?: string; user_code?: string; verification_url?: string;
 };
 export function HermesModelPicker({
-  options, value, disabled, stopped, loading, error, models, signIn, progress,
+  options, value, disabled, stopped, loading, error, models, modelsLoaded = false, recommendedModel, signIn, progress,
   onChange, onLoadOptions, onLoadModels, onConnectKey, onSignIn, onRefreshSignIn,
   onCancelSignIn, onReview, onSetupLocal, onPauseResume,
 }: {
@@ -32,6 +32,8 @@ export function HermesModelPicker({
   loading: boolean;
   error?: string;
   models: string[];
+  modelsLoaded?: boolean;
+  recommendedModel?: string;
   signIn?: HermesSignIn;
   progress?: { phase?: string; jobId?: string; jobState?: string; completed?: number; total?: number };
   onChange: (next: Partial<HermesBackendSelection>) => void;
@@ -49,6 +51,13 @@ export function HermesModelPicker({
   useEffect(() => { setApiKey(""); }, [value.providerId]);
   const mode = value.providerId === "llamacpp" ? "local" : !value.providerId || value.providerId === "custom" ? "existing" : "provider";
   const provider = options?.providers.find((p) => p.id === value.providerId);
+  const autoLoadedProvider = useRef<string | null>(null);
+  useEffect(() => {
+    if (mode !== "provider" || !provider?.credentialConfigured) { autoLoadedProvider.current = null; return; }
+    if (disabled || loading || autoLoadedProvider.current === provider.id) return;
+    autoLoadedProvider.current = provider.id;
+    onLoadModels();
+  }, [mode, provider?.id, provider?.credentialConfigured, disabled, loading, onLoadModels]);
   const selectedLocal = options?.localModels.find((m) => m.id === value.localModelId);
   const bytes = (n: number) => (n / 1024 ** 3).toFixed(1) + " GB";
   function pickProvider(id: string) {
@@ -80,9 +89,11 @@ export function HermesModelPicker({
           {provider && (
             <>
               <p>{provider.description}</p>
-              <p role="status">{provider.signedIn ? "Signed in with Hermes." : provider.credentialConfigured ? "Credential saved in this Hermes profile." : "Connect this provider to choose a model."}</p>
-              {provider.supportsSignIn && <button type="button" disabled={disabled || loading} onClick={onSignIn}>Sign in with {provider.name}</button>}
+              <p role="status">{provider.credentialConfigured ? "Connected to " + provider.name + "." : "Connect this provider to choose a model."}</p>
+              {provider.supportsSignIn && !provider.signedIn && <button type="button" disabled={disabled || loading} onClick={onSignIn}>Sign in with {provider.name}</button>}
               {provider.supportsApiKey && (
+                <details open={!provider.credentialConfigured}>
+                  <summary>{provider.credentialConfigured ? "Replace API key" : "Connect with an API key"}</summary>
                 <form onSubmit={async (event) => {
                   event.preventDefault();
                   const key = apiKey;
@@ -95,13 +106,14 @@ export function HermesModelPicker({
                   <p className="zn-model-picker__note">Saved privately by Hermes. It is never included in the setup review or browser draft.</p>
                   <button type="submit" disabled={disabled || loading || !apiKey.trim()}>Connect provider</button>
                 </form>
+                </details>
               )}
               {!provider.supportsSignIn && !provider.supportsApiKey && <p>Use this provider’s native Hermes setup, then refresh its connection here.</p>}
-              {provider.signupUrl && <a href={provider.signupUrl} target="_blank" rel="noreferrer">Provider setup information ↗</a>}
-              <p className="zn-model-picker__note">An API key and a consumer subscription are separate connection methods. Hermes shows the methods supported by this provider.</p>
+              {!provider.credentialConfigured && provider.signupUrl && <a href={provider.signupUrl} target="_blank" rel="noreferrer">Provider setup information ↗</a>}
+              {!provider.credentialConfigured && <p className="zn-model-picker__note">An API key and a consumer subscription are separate connection methods. Hermes shows the methods supported by this provider.</p>}
             </>
           )}
-          {signIn && signIn.providerId === value.providerId && (
+          {signIn && signIn.providerId === value.providerId && signIn.status !== "approved" && !provider?.signedIn && (
             <div className="zn-model-picker__signin" role="status">
               {signIn.verification_url && <a href={signIn.verification_url} target="_blank" rel="noreferrer">Open provider sign-in ↗</a>}
               {signIn.user_code && <p>Enter this code: <strong>{signIn.user_code}</strong></p>}
@@ -144,14 +156,40 @@ export function HermesModelPicker({
           <p className="zn-model-picker__note">Use the server origin without /v1. Authentication references resolve privately when configuration is applied.</p>
         </>
       )}
-      {mode !== "local" && (
+      {(mode === "existing" || mode === "provider" && provider?.credentialConfigured) && (
         <>
           <div className="zn-model-picker__model-row">
-            <label>Model
-              <input list="hermes-available-models" value={value.modelName || ""} disabled={disabled} onChange={(e) => onChange({ modelName: e.target.value })} />
-              <datalist id="hermes-available-models">{models.map((m) => <option key={m} value={m} />)}</datalist>
-            </label>
-            <button type="button" disabled={disabled || loading || (mode === "provider" ? !provider?.credentialConfigured : !value.modelEndpoint)} onClick={onLoadModels}>Load available models</button>
+            {mode === "provider" ? (
+              <>
+                <label>Model for Hermes
+                  <select value={value.modelName || ""} disabled={disabled || loading || !models.length} onChange={(e) => onChange({ modelName: e.target.value })}>
+                    <option value="">{loading || !modelsLoaded ? "Loading available models…" : "Choose a model"}</option>
+                    {value.modelName && !models.includes(value.modelName) && <option value={value.modelName}>{value.modelName} (saved selection)</option>}
+                    {models.map((m) => <option key={m} value={m}>{m}{m === recommendedModel ? " · Hermes default" : ""}</option>)}
+                  </select>
+                </label>
+                <p>This is the model Hermes will use to answer you. Your provider account may offer several models.</p>
+                {value.modelName && value.modelName === recommendedModel && <p className="zn-model-picker__note">Hermes’s recommended default is selected. You can choose another model.</p>}
+                {!loading && modelsLoaded && !models.length && <p role="status">Hermes could not list models for this account. Refresh the list or enter a model ID below.</p>}
+                <button type="button" disabled={disabled || loading} onClick={onLoadModels}>Refresh models</button>
+                <details>
+                  <summary>Enter a model ID manually</summary>
+                  <label>Model ID
+                    <input value={value.modelName || ""} disabled={disabled} onChange={(e) => onChange({ modelName: e.target.value })} />
+                  </label>
+                </details>
+                <p className="zn-model-picker__note">This selection takes effect after you apply the configuration and start Hermes.</p>
+              </>
+            ) : (
+              <>
+                <label>Server model
+                  <input list="hermes-available-models" value={value.modelName || ""} disabled={disabled} onChange={(e) => onChange({ modelName: e.target.value })} />
+                  <datalist id="hermes-available-models">{models.map((m) => <option key={m} value={m} />)}</datalist>
+                </label>
+                <p className="zn-model-picker__note">The model ID served by this endpoint. Load its list or enter an ID supplied by its owner.</p>
+                <button type="button" disabled={disabled || loading || !value.modelEndpoint} onClick={onLoadModels}>Load available models</button>
+              </>
+            )}
           </div>
           {mode === "existing" && <label>Served context window
             <input type="number" min={1024} value={value.contextLength || ""} disabled={disabled} onChange={(e) => onChange({ contextLength: e.target.value ? Number(e.target.value) : undefined })} />
