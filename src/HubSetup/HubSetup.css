@@ -589,16 +589,57 @@
 .zn-welcome__signin button { margin-right: 8px; }
 @media (max-width: 480px) { .zn-welcome__facts { grid-template-columns: 1fr; gap: 4px; } .zn-welcome__facts dd { margin-bottom: 8px; } }
 
-/* The compact guide is the composer itself; conversation expands above it. */
-.zn-hermes-hud--composer { width: min(380px, calc(100vw - 32px)); }
+/* Glass treatment follows zenith-landing's GlassBox input. */
+.zn-hermes-hud--composer {
+  --hermes-glass-ink: #172622;
+  --hermes-glass-placeholder: #54676a;
+  --hermes-glass-control: #092f93;
+  --hermes-glass-focus: #4b7cdb;
+  --hermes-glass-dot: #268667;
+  width: min(380px, calc(100vw - 32px));
+}
+body:has(.zn-hermes-landing) > [data-zenith-hermes-portal] .zn-hermes-hud--composer {
+  --hermes-glass-ink: #fff;
+  --hermes-glass-placeholder: #ffffffb3;
+  --hermes-glass-control: #fff;
+  --hermes-glass-focus: #b2d9ff;
+  --hermes-glass-dot: #73e3bc;
+}
 .zn-hermes-hud--composer .zn-hermes-hud__panel { width: 100%; margin-bottom: 10px; max-height: calc(100dvh - 126px); }
-.zn-hermes-hud__composer { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 52px; margin: 0; padding: 8px 10px 8px 16px; background: #fff; border: 1px solid #bbc8dc; border-radius: 32px; box-shadow: 0 6px 30px #00184b26; }
-.zn-hermes-hud__composer:focus-within { outline: 2px solid #4b7cdb; outline-offset: 3px; }
-.zn-hermes-hud__composer input { flex: 1; width: 0; min-width: 0; margin: 0; padding: 6px 0; border: 0; border-radius: 0; background: transparent; color: #172622; font: 14px/1.4 system-ui, sans-serif; outline: none; }
+.zn-hermes-hud__composer,
+.zn-hermes-hud .zn-hermes-hud__orb {
+  position: relative;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.10);
+  border: 0;
+  border-radius: 32px;
+  box-shadow: 0 4.67px 9.35px rgba(0, 0, 0, 0.25), inset 0 1.56px 1.56px #fff, inset 0 0.39px 2.34px rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.zn-hermes-hud__composer::before,
+.zn-hermes-hud__orb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  opacity: 0.08;
+}
+.zn-hermes-hud__composer { display: flex; align-items: center; gap: 4px; width: 100%; min-height: 52px; margin: 0; padding: 8px 10px 8px 8px; }
+.zn-hermes-hud__composer:focus-within { outline: 2px solid var(--hermes-glass-focus); outline-offset: 3px; }
+.zn-hermes-hud__composer input { flex: 1; width: 0; min-width: 0; margin: 0; padding: 6px 0; border: 0; border-radius: 0; background: transparent; color: var(--hermes-glass-ink); font: 500 14px/1.4 system-ui, sans-serif; outline: none; }
+.zn-hermes-hud__composer input::placeholder { color: var(--hermes-glass-placeholder); opacity: 1; }
 .zn-hermes-hud__composer input:focus-visible { outline: none; }
-.zn-hermes-hud__composer button { flex: 0 0 32px; min-height: 32px; width: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #092f93; font: 20px/1 system-ui, sans-serif; }
-.zn-hermes-hud__composer .zn-hermes-hud__send { background: #123ab0; color: white; }
-.zn-hermes-hud__composer button:enabled:hover { background: #e2edff; color: #092f93; }
+.zn-hermes-hud__composer button { display: grid; place-items: center; flex: 0 0 32px; min-height: 32px; width: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--hermes-glass-control); font: 20px/1 system-ui, sans-serif; }
+.zn-hermes-hud__composer .zn-hermes-hud__send { background: #ffffff1a; color: var(--hermes-glass-control); }
+.zn-hermes-hud__composer button:enabled:hover { background: #ffffff26; color: var(--hermes-glass-control); }
+.zn-hermes-hud__composer button:focus-visible,
+.zn-hermes-hud .zn-hermes-hud__orb:focus-visible { outline: 2px solid var(--hermes-glass-focus); outline-offset: 3px; }
+.zn-hermes-hud--composer .zn-hermes-hud__dot { flex: 0 0 auto; width: 10px; height: 10px; }
+.zn-hermes-hud--composer .zn-hermes-hud__dot.is-connected { background: var(--hermes-glass-dot); }
 .zn-hermes-hud--composer .zn-hermes-hud__status { margin-top: 0; font-size: 13px; color: #64756d; }
 
 @media (max-aspect-ratio: 1/1) {
@@ -607,11 +648,9 @@
   }
 }
 
-.zn-hermes-hud--composer.is-collapsed { width: 52px; }
-.zn-hermes-hud .zn-hermes-hud__orb { position: relative; display: grid; place-items: center; width: 52px; height: 52px; min-height: 52px; padding: 0; border: 1px solid #bbc8dc; border-radius: 50%; background: #fff; color: #092f93; box-shadow: 0 6px 30px #00184b26; }
-.zn-hermes-hud__orb .zn-hermes-hud__dot { position: absolute; right: 7px; bottom: 7px; outline: 2px solid #fff; }
-.zn-hermes-hud .zn-hermes-hud__orb:enabled:hover { background: #e2edff; }
-.zn-hermes-hud .zn-hermes-hud__orb:focus-visible { outline: 2px solid #4b7cdb; outline-offset: 3px; }
+.zn-hermes-hud--composer.is-collapsed { width: 48px; }
+.zn-hermes-hud .zn-hermes-hud__orb { display: grid; place-items: center; width: 48px; height: 48px; min-height: 48px; padding: 0; border-radius: 50%; }
+.zn-hermes-hud .zn-hermes-hud__orb:enabled:hover { background: #ffffff26; }
 
 .zn-hermes-landing__status { max-width: min(360px, calc(100vw - 40px)); margin: 8px 0 0; color: #fff; font: 14px/1.5 system-ui, sans-serif; text-shadow: 0 1px 2px #062879; }
 .zn-hermes-landing__configuration[open] { display: flex; flex-direction: column; overflow: hidden; }

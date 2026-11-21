@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Start the guide collapsed to an icon-free status dot, make the input's leading dot minimize it and adopt the landing GlassBox treatment — the guide occupies less space and uses the requested shared glass styling without a redundant minus control.
 - Keep initial welcome actions on the cloud scene and put expanded setup in one native modal with a shared guide host — setup can expand without replacing the artwork or disabling the only chat composer.
 - Make the compact Hermes pill a direct message composer and allow the branded landing’s Enter label — typing no longer requires opening another chat form, and Hub entry can stay separate from chat verification.
 - Restore the cloud landing’s white-and-blue square buttons, offset shadow and monospace labels throughout welcome — keeps the new profile flow visually consistent with the selected pixel-art background.

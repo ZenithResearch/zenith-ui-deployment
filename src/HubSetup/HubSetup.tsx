@@ -549,7 +549,7 @@ function HermesMessagePill({
 }) {
   const [message, setMessage] = useState(""),
     [open, setOpen] = useState(false),
-    [collapsed, setCollapsed] = useState(false),
+    [collapsed, setCollapsed] = useState(true),
     [sending, setSending] = useState(false),
     [turns, setTurns] = useState<{ role: string; text: string }[]>([]);
   const input = useRef<HTMLInputElement>(null),
@@ -641,20 +641,6 @@ function HermesMessagePill({
           title="Message Hermes"
           onClick={expand}
         >
-          <svg
-            viewBox="0 0 24 24"
-            width="22"
-            height="22"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z" />
-            <path d="M8 8h8M8 12h5" />
-          </svg>
           <span
             aria-hidden="true"
             className={
@@ -672,13 +658,6 @@ function HermesMessagePill({
       >
         <div className="zn-hermes-hud__header">
           <h2>Hermes</h2>
-          <button
-            type="button"
-            aria-label="Minimize Hermes conversation"
-            onClick={collapse}
-          >
-            Minimize
-          </button>
         </div>
         <div className="zn-hermes-hud__body">
           <p className="zn-hermes-hud__status" role="status">
@@ -710,10 +689,20 @@ function HermesMessagePill({
         onSubmit={submit}
         aria-label="Message Hermes"
       >
-        <span
-          aria-hidden="true"
-          className={"zn-hermes-hud__dot" + (available ? " is-connected" : "")}
-        />
+        <button
+          type="button"
+          className="zn-hermes-hud__dot-control"
+          aria-label="Minimize Hermes input"
+          aria-expanded={true}
+          aria-controls={conversationId + "-composer"}
+          title="Minimize Hermes"
+          onClick={collapse}
+        >
+          <span
+            aria-hidden="true"
+            className={"zn-hermes-hud__dot" + (available ? " is-connected" : "")}
+          />
+        </button>
         <input
           ref={input}
           type="text"
@@ -728,15 +717,6 @@ function HermesMessagePill({
           }}
           autoComplete="off"
         />
-        <button
-          type="button"
-          className="zn-hermes-hud__collapse"
-          aria-label="Collapse Hermes to circle"
-          title="Collapse"
-          onClick={collapse}
-        >
-          −
-        </button>
         <button
           type="button"
           className="zn-hermes-hud__history"
