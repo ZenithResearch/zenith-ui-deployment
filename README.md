@@ -2,8 +2,9 @@
 
 Public source baseline of the presentation component used by
 [Zenith Hub lightweight](https://github.com/ZenithResearch/zenith-hub-lightweight).
-The Hermes entry includes the owner-selected Castalia cloud-reveal bitmap, recorded
-in `provenance.json`. Other investor-deck imagery, private design-gallery history,
+The Hermes entry renders an authored inline SVG cloud scene inspired by the owner-selected
+Castalia reference, recorded in `provenance.json`. The bitmap remains design evidence;
+the rendered scene has no runtime image dependency. Other investor-deck imagery, private design-gallery history,
 commercial fonts and decks are not included. This is the deployment component.
 
 ```sh
@@ -11,6 +12,7 @@ npm ci
 npm run check:source
 npm run typecheck
 npm run build
+npm run test:scene
 ```
 
 `DeploymentMonitor` receives component observations, checkpoints, offered actions,
@@ -32,3 +34,20 @@ source availability, not an open-source license grant. See NOTICE.md.
 `WorkspaceConsole` is a controlled presentation component for native setup proposals, a Runtime-backed process catalog and draft editing/publication. It owns no storage, signing, execution or network calls. The consuming local Hub supplies state and callbacks. New consoles begin with an empty editor/catalog and no selected process or run. Import `@zenith-research/ui-deployment/workspace.css` for its styles.
 
 The direct Hermes composer starts collapsed to a dot-only glass control. Its leading status dot minimizes the expanded input, preserving drafts and conversation state. The translucent fill, 2px blur, grain and inset highlights follow `zenith-landing/src/components/ui/GlassBox.tsx`; the landing application itself is not a runtime dependency.
+
+
+## Animated cloud scene
+
+`ZenithCloudScene` renders hand-authored stepped contours, shadow planes and fixed
+glyph paths. A single animation loop updates only changed cloud transforms on a
+two-unit source grid. It preserves active elapsed time across pauses and cleans up
+its frame, observer, timeout and event listeners when unmounted. No per-frame React
+state or rendering package is used. The scene pauses for setup dialogs, active
+guide composition/conversation, hidden pages and offscreen surfaces. Reduced motion
+uses the complete static reference pose.
+
+Use `<ZenithCloudScene timeMs={0} />` for a deterministic review still, or supply
+`paused` from a host interaction. The component is decorative and ignores input;
+its host retains the semantic product identity, HTML actions and native dialog.
+Explicit TypeScript source imports are rewritten to JavaScript paths during build,
+so both the source-consuming Next application and compiled ESM resolve the scene.

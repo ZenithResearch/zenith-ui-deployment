@@ -11,7 +11,7 @@
       "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
     }
   ],
-  "scope": "Deployment monitor, empty workspace and guided setup presentation, including the selected Castalia cloud-reveal bitmap. Private gallery, fonts, decks, other imagery and Git history remain excluded.",
+  "scope": "Deployment monitor, workspace and guided setup presentation, including an authored code-native cloud scene and the selected Castalia bitmap retained only as design evidence. Private gallery, fonts, decks, other imagery and Git history remain excluded.",
   "authored_files": [
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.css",
@@ -25,12 +25,12 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "7820a039e94faf9ba79f65ae560221bcde9a5adf5803562b72be4083927ae9b1",
+      "sha256": "4fa8cfc6304a503fdc0efab29db060a3ddcd569003c3ae8d3626e639676aef02",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "bade863224789b208ab2a6eebeb939f3395c70fd988ac577e4e00c65e02c9fba",
+      "sha256": "507b59855afa5374b7571fe33b3fefbf9ead93af4d0a08c2c0045467d3e8fadf",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
@@ -46,7 +46,17 @@
     {
       "path": "src/HubSetup/HermesWelcome.tsx",
       "origin": "Welcome-screen Hermes installation and model onboarding",
-      "sha256": "79017c412e6b2a2377b1285a4e44facbde8be636ac0c2f940264c845fb6d6a35"
+      "sha256": "78d3fdee014c98d4c75b543fb1d1bfd55aff9c5ed99b0c097a8714ef0649fd0f"
+    },
+    {
+      "path": "src/HubSetup/ZenithCloudScene.tsx",
+      "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
+      "sha256": "28ea1ebc79462d4d762ae9fb05ba41d2cbaa04649dda968da954404f8be205e4"
+    },
+    {
+      "path": "src/HubSetup/cloud-scene-geometry.ts",
+      "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
+      "sha256": "11a88523ace1942c6982e8b251c527f5edd3a99a3a0e282d044fae972d5bd37c"
     }
   ]
 }

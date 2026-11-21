@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Pause decorative motion during setup and guide use, honor reduced motion and retain active time across visibility changes — the new scene remains usable and quiet while people read or configure services.
 - Start the guide collapsed to an icon-free status dot, make the input's leading dot minimize it and adopt the landing GlassBox treatment — the guide occupies less space and uses the requested shared glass styling without a redundant minus control.
 - Keep initial welcome actions on the cloud scene and put expanded setup in one native modal with a shared guide host — setup can expand without replacing the artwork or disabling the only chat composer.
 - Make the compact Hermes pill a direct message composer and allow the branded landing’s Enter label — typing no longer requires opening another chat form, and Hub entry can stay separate from chat verification.
@@ -32,6 +33,7 @@
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added
+- Recreate the cloud landing with authored SVG formations, fixed custom glyphs and bounded ambient drift — the artwork can animate without loading a bitmap or moving the welcome controls.
 - Let the Hermes input pill collapse into a circular launcher and reopen with its draft and conversation intact — the guide can stay available without occupying a full input row.
 - Add an inline welcome canvas for source-install review, truthful progress and progressive Hermes model setup — onboarding can stay on one screen through the first chat without wrapping the older wizard.
 - Add a floating, nonmodal Hermes chat with minimize and keyboard focus handling — the configured guide can remain available on the welcome screen and throughout the Hub.

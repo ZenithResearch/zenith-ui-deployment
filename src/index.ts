@@ -47,3 +47,6 @@ export {
   HermesWelcomeModel,
 } from "./HubSetup/HermesWelcome.js";
 export type { WelcomeConnectionMode } from "./HubSetup/HermesWelcome.js";
+
+export { ZenithCloudScene } from "./HubSetup/ZenithCloudScene.js";
+export type { ZenithCloudSceneProps } from "./HubSetup/ZenithCloudScene.js";

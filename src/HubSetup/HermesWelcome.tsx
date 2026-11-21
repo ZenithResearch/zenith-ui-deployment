@@ -6,6 +6,7 @@ import type {
   HermesSignIn,
 } from "./HermesModelPicker.js";
 import "./HubSetup.css";
+import { ZenithCloudScene } from "./ZenithCloudScene.tsx";
 export function HermesWelcomeFrame({
   title,
   description,
@@ -44,7 +45,9 @@ export function HermesWelcomeFrame({
         className="zn-welcome__art"
         role="img"
         aria-label="Zenith cloud wordmark"
-      />
+      >
+        <ZenithCloudScene />
+      </div>
       <section
         className="zn-setup zn-welcome__panel"
         aria-labelledby="welcome-title"

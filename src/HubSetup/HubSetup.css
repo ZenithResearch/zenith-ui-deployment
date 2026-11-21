@@ -379,8 +379,8 @@
   isolation: isolate;
   min-height: 100vh;
   min-height: max(14rem, 100svh);
-  background: #003cb4 url("./assets/zenith-cloud-reveal-castalia-bitmap-v1.png") center / var(--scene-width) auto no-repeat;
-  image-rendering: pixelated;
+  background: #003ab4;
+  overflow: clip;
 }
 .zn-hermes-landing h1 {
   position: absolute;
@@ -551,7 +551,8 @@
 .zn-hermes-landing__recovery button { padding: 8px 12px; border: 1px solid #173360; background: #eef3ff; color: #173360; font: inherit; cursor: pointer; }
 
 .zn-welcome { min-height: 100svh; background: #123ab0; padding-bottom: 110px; color: #182b24; }
-.zn-welcome__art { height: clamp(200px, 38vw, 390px); background: #123ab0 url("./assets/zenith-cloud-reveal-castalia-bitmap-v1.png") center 53% / cover no-repeat; image-rendering: pixelated; }
+.zn-welcome__art { position: relative; height: clamp(200px, 38vw, 390px); overflow: hidden; background: #003ab4; }
+.zn-welcome__art .zn-cloud-scene { position: absolute; width: 100%; height: 100%; left: 0; top: 0; }
 .zn-setup.zn-welcome__panel { display: block; min-height: 0; width: min(660px, calc(100% - 32px)); margin: -4px auto 0; padding: clamp(22px, 4vw, 38px); background: #fff; border-radius: 16px; box-shadow: 0 14px 50px #00184b40; box-sizing: border-box; }
 /* Carry the original cloud landing controls into the inline welcome flow. */
 .zn-setup.zn-welcome__panel {
@@ -669,4 +670,17 @@ body:has(.zn-hermes-landing) > [data-zenith-hermes-portal] .zn-hermes-hud--compo
 .zn-hermes-modal-guide-host .zn-hermes-hud__body { max-height: min(210px, 24svh); }
 @media (max-width: 480px) {
   .zn-hermes-landing__configuration { padding: 18px; }
+}
+
+/* One persistent scene; HTML actions remain independently interactive. */
+.zn-cloud-scene { display: block; pointer-events: none; user-select: none; }
+.zn-hermes-landing > .zn-cloud-scene { position: absolute; width: var(--scene-width); height: auto; max-width: none; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: -1; }
+@media (prefers-reduced-motion: reduce) {
+  .zn-cloud-scene [data-cloud] { transform: none !important; }
+}
+
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .zn-hermes-hud { right: max(24px, env(safe-area-inset-right)); bottom: max(24px, env(safe-area-inset-bottom)); }
+  @media (max-width: 600px) { .zn-hermes-hud { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); } }
+  .zn-hermes-modal-guide-host .zn-hermes-hud { right: auto; bottom: auto; }
 }

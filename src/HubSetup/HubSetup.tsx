@@ -7,6 +7,7 @@ import React, {
   type ReactNode,
 } from "react";
 import "./HubSetup.css";
+import { ZenithCloudScene } from "./ZenithCloudScene.tsx";
 export type HermesEntryState =
   | "install"
   | "configure"
@@ -95,7 +96,8 @@ export function HermesSetupLanding({
   );
   return (
     <main className="zn-hermes-landing">
-      <h1>Hermes</h1>
+      <ZenithCloudScene paused={configurationOpen} />
+      <h1>Zenith Hub · Hermes</h1>
       <div className="zn-hermes-landing__action" aria-live="polite">
         <button
           ref={primaryButton}
