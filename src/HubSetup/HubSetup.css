@@ -600,3 +600,9 @@
 .zn-hermes-hud__composer .zn-hermes-hud__send { background: #123ab0; color: white; }
 .zn-hermes-hud__composer button:enabled:hover { background: #e2edff; color: #092f93; }
 .zn-hermes-hud--composer .zn-hermes-hud__status { margin-top: 0; font-size: 13px; color: #64756d; }
+
+@media (max-aspect-ratio: 1/1) {
+  .zn-hermes-landing__action {
+    top: min(calc(50% + var(--scene-width) * 0.282 + 1.5rem), calc(100% - 13rem));
+  }
+}

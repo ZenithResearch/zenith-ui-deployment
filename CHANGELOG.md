@@ -9,6 +9,7 @@
 
 
 ### Fixed
+- Reserve space below portrait entry actions for the floating message pill — Enter and Configure remain unobstructed while typing.
 - Keep space between adjacent welcome actions — the restored offset button shadow no longer touches the secondary control.
 - Refresh expired or blocked welcome reviews in place — owners can repair prerequisites or resume reading without navigating away or repeatedly applying a stale plan.
 - Show a controller-check error and retry on the Hermes welcome screen — users can recover from an unavailable setup instead of facing an unexplained disabled action.
