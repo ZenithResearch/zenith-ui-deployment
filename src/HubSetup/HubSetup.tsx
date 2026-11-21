@@ -1,5 +1,11 @@
 "use client";
-import React, { useEffect, useRef, useState, type ReactNode } from "react";
+import React, {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import "./HubSetup.css";
 export type HermesEntryState =
   | "install"
@@ -24,6 +30,7 @@ export function HermesSetupLanding({
   onCloseConfiguration,
   configurationBusy = false,
   continueDisabled = false,
+  continueLabel,
   unavailableReason,
   onRetry,
 }: {
@@ -34,6 +41,7 @@ export function HermesSetupLanding({
   onCloseConfiguration?: () => void;
   configurationBusy?: boolean;
   continueDisabled?: boolean;
+  continueLabel?: string;
   unavailableReason?: string;
   onRetry?: () => void;
 }) {
@@ -45,14 +53,22 @@ export function HermesSetupLanding({
     if (!node) return;
     if (configurationOpen && !node.open) node.showModal();
     if (!configurationOpen && node.open) node.close();
-    return () => { if (node.open) node.close(); };
+    return () => {
+      if (node.open) node.close();
+    };
   }, [configurationOpen]);
   return (
     <main className="zn-hermes-landing">
       <h1>Hermes</h1>
       <div className="zn-hermes-landing__action" aria-live="polite">
-        <button type="button" disabled={pending || continueDisabled} onClick={onContinue}>
-          {hermesEntryLabels[state]}
+        <button
+          type="button"
+          disabled={pending || continueDisabled}
+          onClick={onContinue}
+        >
+          {state === "configure" && continueLabel
+            ? continueLabel
+            : hermesEntryLabels[state]}
         </button>
         {(state === "configure" || configurationOpen) && onConfigure && (
           <button
@@ -66,8 +82,15 @@ export function HermesSetupLanding({
         )}
         {state === "unavailable" && (
           <div className="zn-hermes-landing__recovery" role="alert">
-            <p>{unavailableReason || "The setup controller could not be reached. Try checking again."}</p>
-            {onRetry && <button type="button" onClick={onRetry}>Retry setup check</button>}
+            <p>
+              {unavailableReason ||
+                "The setup controller could not be reached. Try checking again."}
+            </p>
+            {onRetry && (
+              <button type="button" onClick={onRetry}>
+                Retry setup check
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -100,7 +123,11 @@ export function HermesSetupLanding({
 }
 
 export type SetupStep =
-  "welcome" | "communications" | "components" | "review" | "environment";
+  | "welcome"
+  | "communications"
+  | "components"
+  | "review"
+  | "environment";
 export const setupSteps: { id: SetupStep; label: string }[] = [
   { id: "welcome", label: "Welcome" },
   { id: "communications", label: "Communications" },
@@ -252,7 +279,12 @@ export type ConnectionListItem = {
   detail?: string;
   action?: "choose" | "manage";
 };
-export function ConnectionList({ items, disabled, onChoose, onManage }: {
+export function ConnectionList({
+  items,
+  disabled,
+  onChoose,
+  onManage,
+}: {
   items: ConnectionListItem[];
   disabled: boolean;
   onChoose: (item: ConnectionListItem) => void;
@@ -264,12 +296,30 @@ export function ConnectionList({ items, disabled, onChoose, onManage }: {
         <li key={item.id}>
           <div>
             <strong>{item.name}</strong>
-            <span className="zn-setup__connection-endpoint">{item.endpoint}</span>
+            <span className="zn-setup__connection-endpoint">
+              {item.endpoint}
+            </span>
             {item.detail && <small>{item.detail}</small>}
           </div>
           <span className="zn-setup__badge">{item.status}</span>
-          {item.action === "choose" && <button type="button" disabled={disabled} onClick={() => onChoose(item)}>Choose this connection</button>}
-          {item.action === "manage" && <button type="button" disabled={disabled} onClick={() => onManage(item)}>Manage connection</button>}
+          {item.action === "choose" && (
+            <button
+              type="button"
+              disabled={disabled}
+              onClick={() => onChoose(item)}
+            >
+              Choose this connection
+            </button>
+          )}
+          {item.action === "manage" && (
+            <button
+              type="button"
+              disabled={disabled}
+              onClick={() => onManage(item)}
+            >
+              Manage connection
+            </button>
+          )}
         </li>
       ))}
     </ul>
@@ -326,35 +376,273 @@ export function SourceDetails({
     </details>
   );
 }
-export function HermesChatHud({ children, connected, openSignal = 0 }: { children: ReactNode; connected: boolean; openSignal?: number }) {
+export function HermesChatHud({
+  children,
+  connected,
+  openSignal = 0,
+  onSend,
+  busy = false,
+  status = "",
+}: {
+  children?: ReactNode;
+  connected: boolean;
+  openSignal?: number;
+  onSend?: (message: string) => Promise<string>;
+  busy?: boolean;
+  status?: string;
+}) {
+  if (onSend)
+    return (
+      <HermesMessagePill
+        available={connected}
+        busy={busy}
+        status={status}
+        onSend={onSend}
+        openSignal={openSignal}
+      />
+    );
+  return (
+    <LegacyHermesChatHud connected={connected} openSignal={openSignal}>
+      {children}
+    </LegacyHermesChatHud>
+  );
+}
+function LegacyHermesChatHud({
+  children,
+  connected,
+  openSignal = 0,
+}: {
+  children: ReactNode;
+  connected: boolean;
+  openSignal?: number;
+}) {
   const [open, setOpen] = useState(false);
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLElement>(null);
   const hasOpened = useRef(false);
-  useEffect(() => { if (openSignal > 0) setOpen(true); }, [openSignal]);
+  useEffect(() => {
+    if (openSignal > 0) setOpen(true);
+  }, [openSignal]);
   useEffect(() => {
     if (open) {
       hasOpened.current = true;
-      const input = panel.current?.querySelector<HTMLTextAreaElement>("textarea:not(:disabled)");
+      const input = panel.current?.querySelector<HTMLTextAreaElement>(
+        "textarea:not(:disabled)",
+      );
       (input || panel.current)?.focus();
     } else if (hasOpened.current) launcher.current?.focus();
   }, [open]);
   return (
     <div className="zn-setup zn-hermes-hud">
-      <button ref={launcher} type="button" className="zn-hermes-hud__launcher" hidden={open}
-        aria-label="Open Hermes chat" aria-expanded={open} onClick={() => setOpen(true)}>
-        <span aria-hidden="true" className={"zn-hermes-hud__dot" + (connected ? " is-connected" : "")} />
-        <strong>Hermes</strong><span>{connected ? "Chat" : "Setup help"}</span>
+      <button
+        ref={launcher}
+        type="button"
+        className="zn-hermes-hud__launcher"
+        hidden={open}
+        aria-label="Open Hermes chat"
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+      >
+        <span
+          aria-hidden="true"
+          className={"zn-hermes-hud__dot" + (connected ? " is-connected" : "")}
+        />
+        <strong>Hermes</strong>
+        <span>{connected ? "Chat" : "Setup help"}</span>
       </button>
-      <section ref={panel} hidden={!open} tabIndex={-1} role="dialog" aria-modal="false" aria-label="Hermes chat"
-        className="zn-hermes-hud__panel" onKeyDown={(event) => {
-          if (event.key === "Escape") { event.preventDefault(); setOpen(false); }
-        }}>
-        <div className="zn-hermes-hud__header"><h2>Hermes</h2>
-          <button type="button" aria-label="Minimize Hermes chat" onClick={() => setOpen(false)}>Minimize</button>
+      <section
+        ref={panel}
+        hidden={!open}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="false"
+        aria-label="Hermes chat"
+        className="zn-hermes-hud__panel"
+        onKeyDown={(event) => {
+          if (event.key === "Escape") {
+            event.preventDefault();
+            setOpen(false);
+          }
+        }}
+      >
+        <div className="zn-hermes-hud__header">
+          <h2>Hermes</h2>
+          <button
+            type="button"
+            aria-label="Minimize Hermes chat"
+            onClick={() => setOpen(false)}
+          >
+            Minimize
+          </button>
         </div>
         <div className="zn-hermes-hud__body">{children}</div>
       </section>
+    </div>
+  );
+}
+function HermesMessagePill({
+  available,
+  busy,
+  status,
+  onSend,
+  openSignal,
+}: {
+  available: boolean;
+  busy: boolean;
+  status: string;
+  onSend: (message: string) => Promise<string>;
+  openSignal: number;
+}) {
+  const [message, setMessage] = useState(""),
+    [open, setOpen] = useState(false),
+    [sending, setSending] = useState(false),
+    [turns, setTurns] = useState<{ role: string; text: string }[]>([]);
+  const input = useRef<HTMLInputElement>(null),
+    mounted = useRef(true);
+  const conversationId = useId();
+  useEffect(() => {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (openSignal > 0) {
+      setOpen(true);
+      input.current?.focus();
+    }
+  }, [openSignal]);
+  async function submit(event: React.FormEvent) {
+    event.preventDefault();
+    const text = message.trim();
+    if (!text || !available || busy || sending) return;
+    setMessage("");
+    setOpen(true);
+    setSending(true);
+    setTurns((current) => [...current, { role: "You", text }]);
+    try {
+      const reply = await onSend(text);
+      if (mounted.current)
+        setTurns((current) => [...current, { role: "Hermes", text: reply }]);
+    } catch {
+      if (mounted.current) {
+        setTurns((current) => [
+          ...current,
+          {
+            role: "Connection",
+            text: "Hermes could not reply. Check the connection and try again.",
+          },
+        ]);
+        setMessage((current) => current || text);
+      }
+    } finally {
+      if (mounted.current) {
+        setSending(false);
+        input.current?.focus();
+      }
+    }
+  }
+  function minimize() {
+    setOpen(false);
+    input.current?.focus();
+  }
+  return (
+    <div
+      className="zn-setup zn-hermes-hud zn-hermes-hud--composer"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          event.preventDefault();
+          minimize();
+        }
+      }}
+    >
+      <section
+        id={conversationId}
+        hidden={!open}
+        role="region"
+        aria-label="Hermes conversation"
+        className="zn-hermes-hud__panel"
+      >
+        <div className="zn-hermes-hud__header">
+          <h2>Hermes</h2>
+          <button
+            type="button"
+            aria-label="Minimize Hermes conversation"
+            onClick={minimize}
+          >
+            Minimize
+          </button>
+        </div>
+        <div className="zn-hermes-hud__body">
+          <p className="zn-hermes-hud__status" role="status">
+            {status}
+          </p>
+          <div
+            className="zn-setup__conversation"
+            role="log"
+            aria-live="polite"
+            aria-label="Messages with Hermes"
+          >
+            {turns.map((turn, index) => (
+              <div key={index}>
+                <strong>{turn.role}</strong>
+                <p>{turn.text}</p>
+              </div>
+            ))}
+            {sending && <p role="status">Waiting for Hermes…</p>}
+            {!turns.length && (
+              <p>Type your message below to start a conversation.</p>
+            )}
+          </div>
+        </div>
+      </section>
+      <form
+        className="zn-hermes-hud__composer"
+        onSubmit={submit}
+        aria-label="Message Hermes"
+      >
+        <span
+          aria-hidden="true"
+          className={"zn-hermes-hud__dot" + (available ? " is-connected" : "")}
+        />
+        <input
+          ref={input}
+          type="text"
+          aria-label="Message Hermes"
+          placeholder="Ask Hermes…"
+          maxLength={4000}
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter" && event.nativeEvent.isComposing)
+              event.preventDefault();
+          }}
+          autoComplete="off"
+        />
+        <button
+          type="button"
+          className="zn-hermes-hud__history"
+          aria-label={
+            open ? "Hide Hermes conversation" : "Show Hermes conversation"
+          }
+          aria-expanded={open}
+          aria-controls={conversationId}
+          onClick={() => {
+            setOpen((current) => !current);
+            input.current?.focus();
+          }}
+        >
+          ⌃
+        </button>
+        <button
+          type="submit"
+          className="zn-hermes-hud__send"
+          aria-label="Send message to Hermes"
+          disabled={!available || busy || sending || !message.trim()}
+        >
+          {sending ? "…" : "↑"}
+        </button>
+      </form>
     </div>
   );
 }

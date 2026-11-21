@@ -588,3 +588,15 @@
 .zn-welcome__model, .zn-welcome__signin { margin: 14px 0; padding: 16px; background: #f5f8ff; border: 1px solid #d6dfed; border-radius: 8px; }
 .zn-welcome__signin button { margin-right: 8px; }
 @media (max-width: 480px) { .zn-welcome__facts { grid-template-columns: 1fr; gap: 4px; } .zn-welcome__facts dd { margin-bottom: 8px; } }
+
+/* The compact guide is the composer itself; conversation expands above it. */
+.zn-hermes-hud--composer { width: min(380px, calc(100vw - 32px)); }
+.zn-hermes-hud--composer .zn-hermes-hud__panel { width: 100%; margin-bottom: 10px; max-height: calc(100dvh - 126px); }
+.zn-hermes-hud__composer { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 52px; margin: 0; padding: 8px 10px 8px 16px; background: #fff; border: 1px solid #bbc8dc; border-radius: 32px; box-shadow: 0 6px 30px #00184b26; }
+.zn-hermes-hud__composer:focus-within { outline: 2px solid #4b7cdb; outline-offset: 3px; }
+.zn-hermes-hud__composer input { flex: 1; width: 0; min-width: 0; margin: 0; padding: 6px 0; border: 0; border-radius: 0; background: transparent; color: #172622; font: 14px/1.4 system-ui, sans-serif; outline: none; }
+.zn-hermes-hud__composer input:focus-visible { outline: none; }
+.zn-hermes-hud__composer button { flex: 0 0 32px; min-height: 32px; width: 32px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #092f93; font: 20px/1 system-ui, sans-serif; }
+.zn-hermes-hud__composer .zn-hermes-hud__send { background: #123ab0; color: white; }
+.zn-hermes-hud__composer button:enabled:hover { background: #e2edff; color: #092f93; }
+.zn-hermes-hud--composer .zn-hermes-hud__status { margin-top: 0; font-size: 13px; color: #64756d; }
