@@ -612,3 +612,22 @@
 .zn-hermes-hud__orb .zn-hermes-hud__dot { position: absolute; right: 7px; bottom: 7px; outline: 2px solid #fff; }
 .zn-hermes-hud .zn-hermes-hud__orb:enabled:hover { background: #e2edff; }
 .zn-hermes-hud .zn-hermes-hud__orb:focus-visible { outline: 2px solid #4b7cdb; outline-offset: 3px; }
+
+.zn-hermes-landing__status { max-width: min(360px, calc(100vw - 40px)); margin: 8px 0 0; color: #fff; font: 14px/1.5 system-ui, sans-serif; text-shadow: 0 1px 2px #062879; }
+.zn-hermes-landing__configuration[open] { display: flex; flex-direction: column; overflow: hidden; }
+.zn-hermes-landing__configuration-heading { flex: 0 0 auto; }
+.zn-hermes-landing__configuration-body { --brand: #092f93; --border: #bbc8dc; flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 4px 4px; }
+.zn-hermes-landing__configuration-body button { border-color: #082f93; border-radius: 0; color: #092f93; font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; }
+.zn-hermes-landing__configuration-body .zn-setup__primary { min-height: 48px; padding: .75rem 1.35rem; border: 2px solid #082f93; background: #fff; color: #092f93; box-shadow: 4px 4px 0 #062879; font: 700 1rem/1.3 ui-monospace, Menlo, Consolas, monospace; }
+.zn-hermes-landing__configuration-body button:enabled:hover { background: #e2edff; }
+.zn-hermes-landing__configuration-body :is(button,input,textarea,select,a,summary):focus-visible { outline: 2px solid #295ab3; outline-offset: 3px; }
+.zn-welcome__content > button { margin: 0 12px 12px 0; }
+.zn-hermes-modal-guide-host { display: flex; flex: 0 0 auto; justify-content: flex-end; min-height: 0; max-width: 100%; }
+.zn-hermes-modal-guide-host > [data-zenith-hermes-portal] { max-width: 100%; }
+.zn-hermes-modal-guide-host > [data-zenith-hermes-portal]:not(:empty) { margin-top: 16px; }
+.zn-hermes-modal-guide-host .zn-hermes-hud { position: relative; right: auto; bottom: auto; max-width: 100%; }
+.zn-hermes-modal-guide-host .zn-hermes-hud__panel { max-height: min(280px, 32svh); }
+.zn-hermes-modal-guide-host .zn-hermes-hud__body { max-height: min(210px, 24svh); }
+@media (max-width: 480px) {
+  .zn-hermes-landing__configuration { padding: 18px; }
+}

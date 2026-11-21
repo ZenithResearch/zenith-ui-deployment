@@ -12,13 +12,32 @@ export function HermesWelcomeFrame({
   children,
   error,
   onRetry,
+  embedded = false,
 }: {
   title: string;
   description?: string;
   children: ReactNode;
   error?: string;
   onRetry: () => void;
+  embedded?: boolean;
 }) {
+  if (embedded)
+    return (
+      <div className="zn-welcome__content">
+        {description && (
+          <p className="zn-welcome__description">{description}</p>
+        )}
+        {error && (
+          <div role="alert" className="zn-setup__error">
+            <p>{error}</p>
+            <button type="button" onClick={onRetry}>
+              Retry setup check
+            </button>
+          </div>
+        )}
+        {children}
+      </div>
+    );
   return (
     <main className="zn-welcome">
       <div

@@ -31,8 +31,13 @@ export function HermesSetupLanding({
   configurationBusy = false,
   continueDisabled = false,
   continueLabel,
+  primaryLabel,
   unavailableReason,
   onRetry,
+  expanded,
+  configurationTitle = "Configure Hermes",
+  statusMessage,
+  onGuideHost,
 }: {
   state: HermesEntryState;
   onContinue: () => void;
@@ -42,43 +47,87 @@ export function HermesSetupLanding({
   configurationBusy?: boolean;
   continueDisabled?: boolean;
   continueLabel?: string;
+  primaryLabel?: string;
   unavailableReason?: string;
   onRetry?: () => void;
+  expanded?: boolean;
+  configurationTitle?: string;
+  statusMessage?: string;
+  onGuideHost?: (host: HTMLDivElement | null) => void;
 }) {
   const pending = state === "checking" || state === "unavailable";
   const dialog = useRef<HTMLDialogElement>(null);
-  const configurationOpen = Boolean(configuration);
+  const primaryButton = useRef<HTMLButtonElement>(null);
+  const guideHost = useRef<HTMLDivElement>(null);
+  const returnFocus = useRef<HTMLElement | null>(null);
+  const guideCallback = useRef(onGuideHost);
+  guideCallback.current = onGuideHost;
+  const titleId = useId();
+  const configurationOpen = expanded ?? Boolean(configuration);
   useEffect(() => {
     const node = dialog.current;
     if (!node) return;
-    if (configurationOpen && !node.open) node.showModal();
-    if (!configurationOpen && node.open) node.close();
-    return () => {
-      if (node.open) node.close();
-    };
+    if (configurationOpen && !node.open) {
+      if (!returnFocus.current?.isConnected)
+        returnFocus.current =
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null;
+      node.showModal();
+      guideCallback.current?.(guideHost.current);
+    } else if (!configurationOpen && node.open) {
+      guideCallback.current?.(null);
+      node.close();
+      const target =
+        returnFocus.current?.isConnected &&
+        !returnFocus.current.hasAttribute("disabled")
+          ? returnFocus.current
+          : primaryButton.current;
+      target?.focus({ preventScroll: true });
+    }
   }, [configurationOpen]);
+  useEffect(
+    () => () => {
+      guideCallback.current?.(null);
+      if (dialog.current?.open) dialog.current.close();
+    },
+    [],
+  );
   return (
     <main className="zn-hermes-landing">
       <h1>Hermes</h1>
       <div className="zn-hermes-landing__action" aria-live="polite">
         <button
+          ref={primaryButton}
           type="button"
           disabled={pending || continueDisabled}
-          onClick={onContinue}
+          onClick={(event) => {
+            returnFocus.current = event.currentTarget;
+            onContinue();
+          }}
         >
-          {state === "configure" && continueLabel
-            ? continueLabel
-            : hermesEntryLabels[state]}
+          {primaryLabel ||
+            (state === "configure" && continueLabel
+              ? continueLabel
+              : hermesEntryLabels[state])}
         </button>
         {(state === "configure" || configurationOpen) && onConfigure && (
           <button
             type="button"
             className="zn-hermes-landing__configure"
             disabled={pending}
-            onClick={onConfigure}
+            onClick={(event) => {
+              returnFocus.current = event.currentTarget;
+              onConfigure();
+            }}
           >
             Configure
           </button>
+        )}
+        {statusMessage && (
+          <p className="zn-hermes-landing__status" role="status">
+            {statusMessage}
+          </p>
         )}
         {state === "unavailable" && (
           <div className="zn-hermes-landing__recovery" role="alert">
@@ -97,18 +146,18 @@ export function HermesSetupLanding({
       <dialog
         ref={dialog}
         className="zn-hermes-landing__configuration"
-        aria-labelledby="hermes-configuration-title"
+        aria-labelledby={titleId}
         onCancel={(event) => {
           event.preventDefault();
           if (!configurationBusy) onCloseConfiguration?.();
         }}
       >
         <div className="zn-hermes-landing__configuration-heading">
-          <h2 id="hermes-configuration-title">Configure Hermes</h2>
+          <h2 id={titleId}>{configurationTitle}</h2>
           <button
             type="button"
             disabled={configurationBusy}
-            aria-label="Close Hermes configuration"
+            aria-label="Close Hermes setup"
             onClick={onCloseConfiguration}
           >
             Close
@@ -117,6 +166,11 @@ export function HermesSetupLanding({
         <div className="zn-setup zn-hermes-landing__configuration-body">
           {configuration}
         </div>
+        <div
+          ref={guideHost}
+          className="zn-hermes-modal-guide-host"
+          data-zenith-guide-host={onGuideHost ? "" : undefined}
+        />
       </dialog>
     </main>
   );

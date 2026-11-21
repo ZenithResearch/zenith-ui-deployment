@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Keep initial welcome actions on the cloud scene and put expanded setup in one native modal with a shared guide host — setup can expand without replacing the artwork or disabling the only chat composer.
 - Make the compact Hermes pill a direct message composer and allow the branded landing’s Enter label — typing no longer requires opening another chat form, and Hub entry can stay separate from chat verification.
 - Restore the cloud landing’s white-and-blue square buttons, offset shadow and monospace labels throughout welcome — keeps the new profile flow visually consistent with the selected pixel-art background.
 - Separate installed Hermes software from the Hub guide-profile setup, with saved model-setting selection — an installed CLI no longer leads to a redundant install action.
