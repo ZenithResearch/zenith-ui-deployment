@@ -25,12 +25,12 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "01cc41baf0ae602c401ab10dff67d626dbea59094488d7e8f1cf692decca9747",
+      "sha256": "9b0fa079bda4956d7ab97b809ad3f3ed2316f01fb05e0ca9bbcc56d037387b74",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "e03cdabf69deb0f605942fff5c86a790014399e970189937193ce1e7e47b3cf4",
+      "sha256": "fc7c772b5387cd05b094a50d96fa9c09aeafc64ab5db45b38c9ce243436cd09e",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {

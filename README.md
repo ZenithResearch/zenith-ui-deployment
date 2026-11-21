@@ -53,3 +53,5 @@ Explicit TypeScript source imports are rewritten to JavaScript paths during buil
 so both the source-consuming Next application and compiled ESM resolve the scene.
 
 The glass reply surface displays only the latest assistant response, with no visual heading, role labels or user transcript. It remains visible for its word count at 80 words per minute, then fades over 400ms. Hidden tabs and a minimized input pause reading time. The caret reopens the latest reply with a fresh reading interval; a new request replaces the old reply.
+
+While a reply is pending, an animated border travels around the glass input (or minimized dot control), and the response panel stays hidden. The busy state remains available to assistive technology. Reduced motion replaces the traveling border with a static outline.

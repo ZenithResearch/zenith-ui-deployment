@@ -640,7 +640,7 @@ function HermesMessagePill({
     setLatestReply(null);
     setFading(false);
     setMessage("");
-    setOpen(true);
+    setOpen(false);
     setSending(true);
     try {
       const reply = await onSend(text);
@@ -677,14 +677,15 @@ function HermesMessagePill({
       replyClock.current = { id: latestReply.id, remaining: replyDisplayMs(latestReply.text) };
       setFading(false);
       setOpen(true);
-    } else if (sending) setOpen(true);
+    }
     input.current?.focus();
   }
   return (
     <div
       className={
         "zn-setup zn-hermes-hud zn-hermes-hud--composer" +
-        (collapsed ? " is-collapsed" : "")
+        (collapsed ? " is-collapsed" : "") +
+        (sending ? " is-loading" : "")
       }
       onKeyDown={(event) => {
         if (event.key === "Escape" && !collapsed) {
@@ -701,10 +702,12 @@ function HermesMessagePill({
           className="zn-hermes-hud__orb"
           aria-label="Open Hermes message input"
           aria-expanded={false}
+          aria-busy={sending}
           aria-controls={responseId + "-composer"}
           title="Message Hermes"
           onClick={expand}
         >
+          {sending && <HermesLoadingBorder />}
           <span
             aria-hidden="true"
             className={"zn-hermes-hud__dot" + (available ? " is-connected" : "")}
@@ -713,13 +716,13 @@ function HermesMessagePill({
       )}
       <section
         id={responseId}
-        hidden={collapsed || !open || (!latestReply && !sending)}
+        hidden={collapsed || !open || !latestReply}
         role="region"
         aria-label="Latest Hermes response"
         className={"zn-hermes-hud__panel" + (fading ? " is-fading" : "")}
       >
         <p className="zn-hermes-hud__reply" role="status" aria-live="polite" aria-atomic="true">
-          {sending ? "Waiting for Hermes…" : latestReply?.text}
+          {latestReply?.text}
         </p>
       </section>
       <form
@@ -728,9 +731,13 @@ function HermesMessagePill({
         className="zn-hermes-hud__composer"
         onSubmit={submit}
         aria-label="Message Hermes"
+        aria-busy={sending}
         aria-describedby={responseId + "-connection"}
       >
-        <span id={responseId + "-connection"} className="zn-hermes-hud__sr-only">{status}</span>
+        {sending && <HermesLoadingBorder />}
+        <span id={responseId + "-connection"} className="zn-hermes-hud__sr-only" role="status">
+          {sending ? "Hermes is replying." : status}
+        </span>
         <button
           type="button"
           className="zn-hermes-hud__dot-control"
@@ -765,7 +772,7 @@ function HermesMessagePill({
           aria-label={open ? "Hide latest Hermes response" : "Show latest Hermes response"}
           aria-expanded={open}
           aria-controls={responseId}
-          disabled={!latestReply && !sending}
+          disabled={!latestReply}
           onClick={toggleReply}
         >
           ⌃
@@ -776,10 +783,18 @@ function HermesMessagePill({
           aria-label="Send message to Hermes"
           disabled={!available || busy || sending || !message.trim()}
         >
-          {sending ? "…" : "↑"}
+          ↑
         </button>
       </form>
     </div>
+  );
+}
+function HermesLoadingBorder() {
+  return (
+    <svg className="zn-hermes-hud__loading-border" aria-hidden="true" focusable="false">
+      <rect className="zn-hermes-hud__loading-track" x="1" y="1" rx="26" pathLength="100" />
+      <rect className="zn-hermes-hud__loading-arc" x="1" y="1" rx="26" pathLength="100" />
+    </svg>
   );
 }
 export function GuideChat({
