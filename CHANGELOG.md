@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Changed
+- Show only the latest Hermes reply in a heading-free glass panel, then fade it after reading time at 80 words per minute — the guide no longer leaves a transcript or an opaque card over the welcome scene.
 - Pause decorative motion during setup and guide use, honor reduced motion and retain active time across visibility changes — the new scene remains usable and quiet while people read or configure services.
 - Start the guide collapsed to an icon-free status dot, make the input's leading dot minimize it and adopt the landing GlassBox treatment — the guide occupies less space and uses the requested shared glass styling without a redundant minus control.
 - Keep initial welcome actions on the cloud scene and put expanded setup in one native modal with a shared guide host — setup can expand without replacing the artwork or disabling the only chat composer.

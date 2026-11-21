@@ -33,7 +33,7 @@ source availability, not an open-source license grant. See NOTICE.md.
 
 `WorkspaceConsole` is a controlled presentation component for native setup proposals, a Runtime-backed process catalog and draft editing/publication. It owns no storage, signing, execution or network calls. The consuming local Hub supplies state and callbacks. New consoles begin with an empty editor/catalog and no selected process or run. Import `@zenith-research/ui-deployment/workspace.css` for its styles.
 
-The direct Hermes composer starts collapsed to a dot-only glass control. Its leading status dot minimizes the expanded input, preserving drafts and conversation state. The translucent fill, 2px blur, grain and inset highlights follow `zenith-landing/src/components/ui/GlassBox.tsx`; the landing application itself is not a runtime dependency.
+The direct Hermes composer starts collapsed to a dot-only glass control. Its leading status dot minimizes the expanded input, preserving drafts and the latest reply. The translucent fill, 2px blur, grain and inset highlights follow `zenith-landing/src/components/ui/GlassBox.tsx`; the landing application itself is not a runtime dependency.
 
 
 ## Animated cloud scene
@@ -51,3 +51,5 @@ Use `<ZenithCloudScene timeMs={0} />` for a deterministic review still, or suppl
 its host retains the semantic product identity, HTML actions and native dialog.
 Explicit TypeScript source imports are rewritten to JavaScript paths during build,
 so both the source-consuming Next application and compiled ESM resolve the scene.
+
+The glass reply surface displays only the latest assistant response, with no visual heading, role labels or user transcript. It remains visible for its word count at 80 words per minute, then fades over 400ms. Hidden tabs and a minimized input pause reading time. The caret reopens the latest reply with a fresh reading interval; a new request replaces the old reply.

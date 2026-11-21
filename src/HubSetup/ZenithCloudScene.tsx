@@ -84,6 +84,7 @@ export function ZenithCloudScene({ paused = false, timeMs }: ZenithCloudScenePro
     document.addEventListener("focusin", afterInteraction);
     document.addEventListener("focusout", afterInteraction);
     document.addEventListener("click", afterInteraction);
+    document.addEventListener("zenith:hermes-guide-activity", afterInteraction);
     draw(activeTime.current);
     reconcile();
     return () => {
@@ -95,6 +96,7 @@ export function ZenithCloudScene({ paused = false, timeMs }: ZenithCloudScenePro
       document.removeEventListener("focusin", afterInteraction);
       document.removeEventListener("focusout", afterInteraction);
       document.removeEventListener("click", afterInteraction);
+      document.removeEventListener("zenith:hermes-guide-activity", afterInteraction);
     };
   }, [paused, timeMs]);
   return (

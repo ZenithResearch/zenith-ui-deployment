@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import "./HubSetup.css";
 import { ZenithCloudScene } from "./ZenithCloudScene.tsx";
+import { REPLY_FADE_MS, replyDisplayMs } from "./reply-timing.ts";
 export type HermesEntryState =
   | "install"
   | "configure"
@@ -553,61 +554,113 @@ function HermesMessagePill({
     [open, setOpen] = useState(false),
     [collapsed, setCollapsed] = useState(true),
     [sending, setSending] = useState(false),
-    [turns, setTurns] = useState<{ role: string; text: string }[]>([]);
+    [fading, setFading] = useState(false),
+    [pageVisible, setPageVisible] = useState(true),
+    [latestReply, setLatestReply] = useState<{ id: number; text: string } | null>(null);
   const input = useRef<HTMLInputElement>(null),
     orb = useRef<HTMLButtonElement>(null),
     interacted = useRef(false),
-    mounted = useRef(true);
-  const conversationId = useId();
+    mounted = useRef(true),
+    pending = useRef(false),
+    sequence = useRef(0),
+    replyClock = useRef<{ id: number; remaining: number } | null>(null);
+  const responseId = useId();
   useEffect(() => {
     mounted.current = true;
+    const visibility = () => setPageVisible(!document.hidden);
+    visibility();
+    document.addEventListener("visibilitychange", visibility);
     return () => {
       mounted.current = false;
+      document.removeEventListener("visibilitychange", visibility);
     };
   }, []);
   useEffect(() => {
     if (interacted.current) (collapsed ? orb.current : input.current)?.focus();
   }, [collapsed]);
   useEffect(() => {
+    const notify = () => document.dispatchEvent(new Event("zenith:hermes-guide-activity"));
+    notify();
+    return () => { notify(); };
+  }, [collapsed, open, sending]);
+  useEffect(() => {
     if (openSignal > 0) {
       interacted.current = true;
       setCollapsed(false);
-      setOpen(true);
+      if (latestReply) {
+        replyClock.current = { id: latestReply.id, remaining: replyDisplayMs(latestReply.text) };
+        setFading(false);
+        setOpen(true);
+      }
       input.current?.focus();
     }
   }, [openSignal]);
+
+  // Only visible reading time counts. Cleanup retains the remaining duration.
+  // Each timer owns a clock object so a replaced reply cannot be hidden by it.
+  useEffect(() => {
+    const clock = replyClock.current;
+    if (!latestReply || !clock || clock.id !== latestReply.id ||
+        !open || collapsed || !pageVisible) return;
+    const startedAt = performance.now();
+    let didFade = false;
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+    const fadeTimer = setTimeout(() => {
+      if (replyClock.current !== clock) return;
+      didFade = true;
+      clock.remaining = 0;
+      setFading(true);
+      hideTimer = setTimeout(() => {
+        if (replyClock.current !== clock) return;
+        setOpen(false);
+        setFading(false);
+      }, REPLY_FADE_MS);
+    }, clock.remaining);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(hideTimer);
+      if (!didFade)
+        clock.remaining = Math.max(0, clock.remaining - (performance.now() - startedAt));
+    };
+  }, [latestReply, open, collapsed, pageVisible, openSignal]);
+
+  function publishReply(text: string) {
+    const reply = { id: ++sequence.current, text: text.trim() };
+    replyClock.current = { id: reply.id, remaining: replyDisplayMs(reply.text) };
+    setLatestReply(reply.text ? reply : null);
+    setFading(false);
+    setOpen(Boolean(reply.text));
+  }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     const text = message.trim();
-    if (!text || !available || busy || sending) return;
+    if (!text || !available || busy || pending.current) return;
+    pending.current = true;
+    replyClock.current = null;
+    setLatestReply(null);
+    setFading(false);
     setMessage("");
     setOpen(true);
     setSending(true);
-    setTurns((current) => [...current, { role: "You", text }]);
     try {
       const reply = await onSend(text);
-      if (mounted.current)
-        setTurns((current) => [...current, { role: "Hermes", text: reply }]);
+      if (mounted.current) publishReply(reply);
     } catch {
       if (mounted.current) {
-        setTurns((current) => [
-          ...current,
-          {
-            role: "Connection",
-            text: "Hermes could not reply. Check the connection and try again.",
-          },
-        ]);
+        publishReply("Hermes could not reply. Check the connection and try again.");
         setMessage((current) => current || text);
       }
     } finally {
+      pending.current = false;
       if (mounted.current) {
         setSending(false);
         input.current?.focus();
       }
     }
   }
-  function minimize() {
+  function dismissReply() {
     setOpen(false);
+    setFading(false);
     input.current?.focus();
   }
   function collapse() {
@@ -618,6 +671,15 @@ function HermesMessagePill({
     interacted.current = true;
     setCollapsed(false);
   }
+  function toggleReply() {
+    if (open) dismissReply();
+    else if (latestReply) {
+      replyClock.current = { id: latestReply.id, remaining: replyDisplayMs(latestReply.text) };
+      setFading(false);
+      setOpen(true);
+    } else if (sending) setOpen(true);
+    input.current?.focus();
+  }
   return (
     <div
       className={
@@ -627,7 +689,7 @@ function HermesMessagePill({
       onKeyDown={(event) => {
         if (event.key === "Escape" && !collapsed) {
           event.preventDefault();
-          if (open) minimize();
+          if (open) dismissReply();
           else collapse();
         }
       }}
@@ -639,64 +701,42 @@ function HermesMessagePill({
           className="zn-hermes-hud__orb"
           aria-label="Open Hermes message input"
           aria-expanded={false}
-          aria-controls={conversationId + "-composer"}
+          aria-controls={responseId + "-composer"}
           title="Message Hermes"
           onClick={expand}
         >
           <span
             aria-hidden="true"
-            className={
-              "zn-hermes-hud__dot" + (available ? " is-connected" : "")
-            }
+            className={"zn-hermes-hud__dot" + (available ? " is-connected" : "")}
           />
         </button>
       )}
       <section
-        id={conversationId}
-        hidden={collapsed || !open}
+        id={responseId}
+        hidden={collapsed || !open || (!latestReply && !sending)}
         role="region"
-        aria-label="Hermes conversation"
-        className="zn-hermes-hud__panel"
+        aria-label="Latest Hermes response"
+        className={"zn-hermes-hud__panel" + (fading ? " is-fading" : "")}
       >
-        <div className="zn-hermes-hud__header">
-          <h2>Hermes</h2>
-        </div>
-        <div className="zn-hermes-hud__body">
-          <p className="zn-hermes-hud__status" role="status">
-            {status}
-          </p>
-          <div
-            className="zn-setup__conversation"
-            role="log"
-            aria-live="polite"
-            aria-label="Messages with Hermes"
-          >
-            {turns.map((turn, index) => (
-              <div key={index}>
-                <strong>{turn.role}</strong>
-                <p>{turn.text}</p>
-              </div>
-            ))}
-            {sending && <p role="status">Waiting for Hermes…</p>}
-            {!turns.length && (
-              <p>Type your message below to start a conversation.</p>
-            )}
-          </div>
-        </div>
+        <p className="zn-hermes-hud__reply" role="status" aria-live="polite" aria-atomic="true">
+          {sending ? "Waiting for Hermes…" : latestReply?.text}
+        </p>
       </section>
       <form
-        id={conversationId + "-composer"}
+        id={responseId + "-composer"}
         hidden={collapsed}
         className="zn-hermes-hud__composer"
         onSubmit={submit}
         aria-label="Message Hermes"
+        aria-describedby={responseId + "-connection"}
       >
+        <span id={responseId + "-connection"} className="zn-hermes-hud__sr-only">{status}</span>
         <button
           type="button"
           className="zn-hermes-hud__dot-control"
           aria-label="Minimize Hermes input"
           aria-expanded={true}
-          aria-controls={conversationId + "-composer"}
+          aria-controls={responseId + "-composer"}
           title="Minimize Hermes"
           onClick={collapse}
         >
@@ -722,15 +762,11 @@ function HermesMessagePill({
         <button
           type="button"
           className="zn-hermes-hud__history"
-          aria-label={
-            open ? "Hide Hermes conversation" : "Show Hermes conversation"
-          }
+          aria-label={open ? "Hide latest Hermes response" : "Show latest Hermes response"}
           aria-expanded={open}
-          aria-controls={conversationId}
-          onClick={() => {
-            setOpen((current) => !current);
-            input.current?.focus();
-          }}
+          aria-controls={responseId}
+          disabled={!latestReply && !sending}
+          onClick={toggleReply}
         >
           ⌃
         </button>

@@ -25,12 +25,12 @@
     },
     {
       "path": "src/HubSetup/HubSetup.tsx",
-      "sha256": "4fa8cfc6304a503fdc0efab29db060a3ddcd569003c3ae8d3626e639676aef02",
+      "sha256": "01cc41baf0ae602c401ab10dff67d626dbea59094488d7e8f1cf692decca9747",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "507b59855afa5374b7571fe33b3fefbf9ead93af4d0a08c2c0045467d3e8fadf",
+      "sha256": "e03cdabf69deb0f605942fff5c86a790014399e970189937193ce1e7e47b3cf4",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
@@ -51,12 +51,17 @@
     {
       "path": "src/HubSetup/ZenithCloudScene.tsx",
       "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
-      "sha256": "28ea1ebc79462d4d762ae9fb05ba41d2cbaa04649dda968da954404f8be205e4"
+      "sha256": "547a6b8020746b2e4b1005564e0afbd42e63eb4c88eef38a1a16ca3894760487"
     },
     {
       "path": "src/HubSetup/cloud-scene-geometry.ts",
       "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
       "sha256": "11a88523ace1942c6982e8b251c527f5edd3a99a3a0e282d044fae972d5bd37c"
+    },
+    {
+      "path": "src/HubSetup/reply-timing.ts",
+      "origin": "Visible reply reading-time calculation at 80 words per minute",
+      "sha256": "590dbea99966dc22ff05187d09578793999482abfc208973643cd1318811123b"
     }
   ]
 }

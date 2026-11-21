@@ -32,7 +32,8 @@
     "build": "tsc && node scripts/copy-css.mjs",
     "typecheck": "tsc --noEmit",
     "check:source": "node scripts/check-source.mjs",
-    "test:scene": "node --test tests/cloud-scene.test.mjs"
+    "test:scene": "node --test tests/cloud-scene.test.mjs",
+    "test:reply": "node --test tests/reply-timing.test.mjs"
   },
   "peerDependencies": {
     "react": "^19.2.4"
