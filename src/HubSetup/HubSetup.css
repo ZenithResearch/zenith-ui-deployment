@@ -401,7 +401,8 @@
   justify-items: center;
   gap: 0.5rem;
 }
-.zn-hermes-landing__action > button {
+.zn-hermes-landing__action > button,
+.zn-welcome__panel .zn-setup__primary {
   min-height: 48px;
   padding: 0.75rem 1.35rem;
   border: 2px solid #082f93;
@@ -413,14 +414,16 @@
   white-space: nowrap;
   cursor: pointer;
 }
-.zn-hermes-landing__action > button:enabled:hover {
+.zn-hermes-landing__action > button:enabled:hover,
+.zn-welcome__panel button:enabled:hover {
   background: #e2edff;
 }
 .zn-hermes-landing__action > button:focus-visible {
   outline: 3px solid white;
   outline-offset: 4px;
 }
-.zn-hermes-landing__action > button:disabled {
+.zn-hermes-landing__action > button:disabled,
+.zn-welcome__panel .zn-setup__primary:disabled {
   background: #d6e4fd;
   color: #374f7e;
   cursor: default;
@@ -547,6 +550,25 @@
 .zn-welcome { min-height: 100svh; background: #123ab0; padding-bottom: 110px; color: #182b24; }
 .zn-welcome__art { height: clamp(200px, 38vw, 390px); background: #123ab0 url("./assets/zenith-cloud-reveal-castalia-bitmap-v1.png") center 53% / cover no-repeat; image-rendering: pixelated; }
 .zn-setup.zn-welcome__panel { display: block; min-height: 0; width: min(660px, calc(100% - 32px)); margin: -4px auto 0; padding: clamp(22px, 4vw, 38px); background: #fff; border-radius: 16px; box-shadow: 0 14px 50px #00184b40; box-sizing: border-box; }
+/* Carry the original cloud landing controls into the inline welcome flow. */
+.zn-setup.zn-welcome__panel {
+  --brand: #092f93;
+  --border: #bbc8dc;
+}
+.zn-welcome__panel button {
+  border-color: #082f93;
+  border-radius: 0;
+  color: #092f93;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 700;
+}
+.zn-welcome__panel .zn-setup__primary:disabled {
+  opacity: 1;
+}
+.zn-welcome__panel :is(button, input, textarea, select, a, summary):focus-visible {
+  outline: 3px solid #295ab3;
+  outline-offset: 4px;
+}
 .zn-welcome__panel h1 { font-size: clamp(25px, 4vw, 34px); line-height: 1.2; letter-spacing: -0.7px; margin: 10px 0 12px; }
 .zn-welcome__eyebrow { font-size: 11px; font-weight: 650; letter-spacing: 1.5px; color: #4c645a; }
 .zn-welcome__description { font-size: 17px; line-height: 1.5; color: #5c6e64; margin-bottom: 24px; }
