@@ -423,6 +423,9 @@
   outline-offset: 4px;
 }
 .zn-hermes-landing__action > button:disabled,
+.zn-welcome__panel > button {
+  margin: 0 12px 12px 0;
+}
 .zn-welcome__panel .zn-setup__primary:disabled {
   background: #d6e4fd;
   color: #374f7e;

@@ -8,6 +8,7 @@
 
 
 ### Fixed
+- Keep space between adjacent welcome actions — the restored offset button shadow no longer touches the secondary control.
 - Refresh expired or blocked welcome reviews in place — owners can repair prerequisites or resume reading without navigating away or repeatedly applying a stale plan.
 - Show a controller-check error and retry on the Hermes welcome screen — users can recover from an unavailable setup instead of facing an unexplained disabled action.
 - Clear inferred context and credential references when switching to an existing model server — a local-model preset cannot silently claim a different server’s capacity or carry over its authentication.
