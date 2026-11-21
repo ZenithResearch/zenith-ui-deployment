@@ -30,6 +30,7 @@
 - Format the reusable setup controls and exports — keeps the new guided-flow components readable for downstream review.
 
 ### Added
+- Let the Hermes input pill collapse into a circular launcher and reopen with its draft and conversation intact — the guide can stay available without occupying a full input row.
 - Add an inline welcome canvas for source-install review, truthful progress and progressive Hermes model setup — onboarding can stay on one screen through the first chat without wrapping the older wizard.
 - Add a floating, nonmodal Hermes chat with minimize and keyboard focus handling — the configured guide can remain available on the welcome screen and throughout the Hub.
 - Add status-aware service connection rows — saved and pending connections can be shown without presenting a duplicate connect action.

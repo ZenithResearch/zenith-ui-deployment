@@ -606,3 +606,9 @@
     top: min(calc(50% + var(--scene-width) * 0.282 + 1.5rem), calc(100% - 13rem));
   }
 }
+
+.zn-hermes-hud--composer.is-collapsed { width: 52px; }
+.zn-hermes-hud .zn-hermes-hud__orb { position: relative; display: grid; place-items: center; width: 52px; height: 52px; min-height: 52px; padding: 0; border: 1px solid #bbc8dc; border-radius: 50%; background: #fff; color: #092f93; box-shadow: 0 6px 30px #00184b26; }
+.zn-hermes-hud__orb .zn-hermes-hud__dot { position: absolute; right: 7px; bottom: 7px; outline: 2px solid #fff; }
+.zn-hermes-hud .zn-hermes-hud__orb:enabled:hover { background: #e2edff; }
+.zn-hermes-hud .zn-hermes-hud__orb:focus-visible { outline: 2px solid #4b7cdb; outline-offset: 3px; }

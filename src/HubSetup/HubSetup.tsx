@@ -495,9 +495,12 @@ function HermesMessagePill({
 }) {
   const [message, setMessage] = useState(""),
     [open, setOpen] = useState(false),
+    [collapsed, setCollapsed] = useState(false),
     [sending, setSending] = useState(false),
     [turns, setTurns] = useState<{ role: string; text: string }[]>([]);
   const input = useRef<HTMLInputElement>(null),
+    orb = useRef<HTMLButtonElement>(null),
+    interacted = useRef(false),
     mounted = useRef(true);
   const conversationId = useId();
   useEffect(() => {
@@ -507,7 +510,12 @@ function HermesMessagePill({
     };
   }, []);
   useEffect(() => {
+    if (interacted.current) (collapsed ? orb.current : input.current)?.focus();
+  }, [collapsed]);
+  useEffect(() => {
     if (openSignal > 0) {
+      interacted.current = true;
+      setCollapsed(false);
       setOpen(true);
       input.current?.focus();
     }
@@ -546,19 +554,64 @@ function HermesMessagePill({
     setOpen(false);
     input.current?.focus();
   }
+  function collapse() {
+    interacted.current = true;
+    setCollapsed(true);
+  }
+  function expand() {
+    interacted.current = true;
+    setCollapsed(false);
+  }
   return (
     <div
-      className="zn-setup zn-hermes-hud zn-hermes-hud--composer"
+      className={
+        "zn-setup zn-hermes-hud zn-hermes-hud--composer" +
+        (collapsed ? " is-collapsed" : "")
+      }
       onKeyDown={(event) => {
-        if (event.key === "Escape" && open) {
+        if (event.key === "Escape" && !collapsed) {
           event.preventDefault();
-          minimize();
+          if (open) minimize();
+          else collapse();
         }
       }}
     >
+      {collapsed && (
+        <button
+          ref={orb}
+          type="button"
+          className="zn-hermes-hud__orb"
+          aria-label="Open Hermes message input"
+          aria-expanded={false}
+          aria-controls={conversationId + "-composer"}
+          title="Message Hermes"
+          onClick={expand}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z" />
+            <path d="M8 8h8M8 12h5" />
+          </svg>
+          <span
+            aria-hidden="true"
+            className={
+              "zn-hermes-hud__dot" + (available ? " is-connected" : "")
+            }
+          />
+        </button>
+      )}
       <section
         id={conversationId}
-        hidden={!open}
+        hidden={collapsed || !open}
         role="region"
         aria-label="Hermes conversation"
         className="zn-hermes-hud__panel"
@@ -568,7 +621,7 @@ function HermesMessagePill({
           <button
             type="button"
             aria-label="Minimize Hermes conversation"
-            onClick={minimize}
+            onClick={collapse}
           >
             Minimize
           </button>
@@ -597,6 +650,8 @@ function HermesMessagePill({
         </div>
       </section>
       <form
+        id={conversationId + "-composer"}
+        hidden={collapsed}
         className="zn-hermes-hud__composer"
         onSubmit={submit}
         aria-label="Message Hermes"
@@ -619,6 +674,15 @@ function HermesMessagePill({
           }}
           autoComplete="off"
         />
+        <button
+          type="button"
+          className="zn-hermes-hud__collapse"
+          aria-label="Collapse Hermes to circle"
+          title="Collapse"
+          onClick={collapse}
+        >
+          −
+        </button>
         <button
           type="button"
           className="zn-hermes-hud__history"
