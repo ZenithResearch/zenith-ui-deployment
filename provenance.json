@@ -65,18 +65,13 @@
     },
     {
       "path": "src/YourHub/YourHub.tsx",
-      "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "4eebf48a63d2fa77d13120cc7d831e819a590a54038aa21344928f3ebd5595f8"
+      "origin": "Compact resource gallery and guided review presentation without a resource graph",
+      "sha256": "fcd49340c1ca7e9d625ecbc89b03baadd480669f1f26d3f3a2150c7935def7aa"
     },
     {
       "path": "src/YourHub/YourHub.css",
-      "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "3d07e4cef87051b8d57a76a8bac4108ce9721f91dc0989d40eb02ba541a08e12"
-    },
-    {
-      "path": "src/YourHub/graph-layout.ts",
-      "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "0a25bcb6bdd7c6acdb8c21a32f83aba93ff192d164e53f64f05c7e16da9bf7e4"
+      "origin": "Compact resource gallery and guided review presentation without a resource graph",
+      "sha256": "03a9437038caefb93cb7b9ef40adce0aaf99a424632422c997f7ad354d7bf780"
     }
   ]
 }

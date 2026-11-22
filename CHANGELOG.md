@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Removed
+- Remove the resource graph view and top Add resource action, retaining the compact gallery with an accessible refresh icon — resource selection stays on its cards while the experimental graph is rolled back.
+
 ### Changed
 - Compact resource cards to a name, short description and small action/status footer, removing the icon and management header row — more resources fit in the gallery with less visual noise.
 
