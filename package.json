@@ -23,7 +23,8 @@
     },
     "./styles.css": "./dist/DeploymentMonitor/DeploymentMonitor.css",
     "./workspace.css": "./dist/WorkspaceConsole/WorkspaceConsole.css",
-    "./setup.css": "./dist/HubSetup/HubSetup.css"
+    "./setup.css": "./dist/HubSetup/HubSetup.css",
+    "./hub.css": "./dist/YourHub/YourHub.css"
   },
   "sideEffects": [
     "**/*.css"

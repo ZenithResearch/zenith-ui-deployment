@@ -50,3 +50,6 @@ export type { WelcomeConnectionMode } from "./HubSetup/HermesWelcome.js";
 
 export { ZenithCloudScene } from "./HubSetup/ZenithCloudScene.js";
 export type { ZenithCloudSceneProps } from "./HubSetup/ZenithCloudScene.js";
+
+export {YourHub,ResourceGraph,ResourceDetail,ResourceDialog} from "./YourHub/YourHub.js";
+export type {HubResource} from "./YourHub/YourHub.js";

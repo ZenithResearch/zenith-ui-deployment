@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+- Add reusable Your Hub inventory, resource graph, detail and guided-dialog components — the post-welcome experience can present registered resources without exposing the legacy deployer or requiring a bulk installation.
+
+
 ### Changed
 - Show pending Hermes replies as a traveling border on the glass input instead of a waiting-text card — loading feedback stays with the composer and the reply surface appears only when content arrives.
 - Show only the latest Hermes reply in a heading-free glass panel, then fade it after reading time at 80 words per minute — the guide no longer leaves a transcript or an opaque card over the welcome scene.
