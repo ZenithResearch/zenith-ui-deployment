@@ -600,7 +600,7 @@
   --hermes-reply-glass: rgba(255, 255, 255, 0.10);
   width: min(380px, calc(100vw - 32px));
 }
-body:has(.zn-hermes-landing) > [data-zenith-hermes-portal] .zn-hermes-hud--composer {
+body:has(:is(.zn-hermes-landing, .zn-your-hub)) > [data-zenith-hermes-portal] .zn-hermes-hud--composer {
   --hermes-glass-ink: #fff;
   --hermes-glass-placeholder: #ffffffb3;
   --hermes-glass-control: #fff;

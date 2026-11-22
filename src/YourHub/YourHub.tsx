@@ -1,6 +1,7 @@
 "use client";
 import React,{useEffect,useId,useRef,useState,type ReactNode} from 'react';
 import {layoutResourceGraph,type GraphNode,type GraphEdge} from './graph-layout.ts';
+import {ZenithCloudScene} from '../HubSetup/ZenithCloudScene.tsx';
 import './YourHub.css';
 export type HubResource = {id:string;key:string;label:string;purpose:string;componentId:string;status:string;managed:boolean;mode:string;observedAt?:string|null;endpoint?:string|null;actions:string[];enabled:boolean;stale?:boolean};
 export function YourHub({resources,guide,onAdd,onSelect,onRefresh,busy=false,view,onView,graph,selectedKey,children,notices,catalog=[],onChoose,flowContent}: {
@@ -10,11 +11,10 @@ export function YourHub({resources,guide,onAdd,onSelect,onRefresh,busy=false,vie
 }) {
  const entries=resources;
  const available=catalog.filter(c=>!resources.some(r=>r.componentId===c.id));
- return <div className="zn-your-hub">
-  <header className="zn-your-hub__header"><a className="zn-your-hub__brand" href="/hub" aria-label="Zenith Hub home">ZENITH<span>Hub</span></a><div className="zn-your-hub__guide">{guide?<button onClick={()=>onSelect(guide.key)}><span className={guide.status==='Guide available'?'zn-your-hub__dot is-ready':'zn-your-hub__dot'}/><span>Hermes guide</span><small>{guide.status}</small></button>:<a href="/">Configure your guide</a>}</div></header>
-  <main id="hub-main"><div className="zn-your-hub__intro"><div><p className="zn-your-hub__eyebrow">YOUR ENVIRONMENT</p><h1>Your Hub</h1><p>Bring your services, information and work together.</p></div><button className="zn-your-hub__primary" disabled={busy} onClick={onAdd}>+ Add resource</button></div>
+ return <ResourceCanvas paused={Boolean(flowContent)||Boolean(selectedKey)}>
+  <main id="hub-main"><h1 className="zn-your-hub__sr-only">Resources</h1>
    {notices}{flowContent}
-   <div className="zn-your-hub__toolbar"><div role="group" aria-label="Resource view"><button aria-pressed={view==='list'} onClick={()=>onView('list')}>Resources <span>{entries.length}</span></button><button aria-pressed={view==='graph'} onClick={()=>onView('graph')}>Resource graph</button></div><button disabled={busy} onClick={onRefresh}>Refresh</button></div>
+   <div className="zn-your-hub__toolbar"><div role="group" aria-label="Resource view"><button aria-pressed={view==='list'} onClick={()=>onView('list')}>Resources <span>{entries.length}</span></button><button aria-pressed={view==='graph'} onClick={()=>onView('graph')}>Resource graph</button></div><div className="zn-your-hub__toolbar-actions"><button disabled={busy} onClick={onAdd}>+ Add resource</button><button disabled={busy} onClick={onRefresh}>Refresh</button></div></div>
    <div className={selectedKey?'zn-your-hub__workspace has-detail':'zn-your-hub__workspace'}>
     <section aria-label={view==='list'?'Your resources':'Resource graph'}>
      {view==='graph'?<ResourceGraph graph={graph} onSelect={onSelect}/>:entries.length||available.length?<div className="zn-your-hub__cards">{entries.map(r=><ResourceCard key={r.key} resource={r} selected={r.key===selectedKey} onSelect={()=>onSelect(r.key)}/>)}{available.map(c=><button key={'catalog:'+c.id} className="zn-your-hub__card is-available" disabled={busy} onClick={()=>onChoose?.(c.id)}><div className="zn-your-hub__card-top"><span className="zn-your-hub__resource-symbol" aria-hidden="true">{c.label.slice(0,1)}</span><span>Available to add</span></div><h2>{c.label}</h2><p>{c.description}</p><span className="zn-your-hub__card-action">Add resource <span aria-hidden="true">+</span></span></button>)}</div>:<div className="zn-your-hub__empty"><div aria-hidden="true" className="zn-your-hub__empty-mark">+</div><h2>Make room for what you use.</h2><p>Connect an existing service or set one up here.<br/>You can add more whenever you need them.</p><button onClick={onAdd} disabled={busy}>Add your first resource <span aria-hidden="true">→</span></button><small>Your guide is available from the control in the corner once configured.</small></div>}
@@ -22,7 +22,7 @@ export function YourHub({resources,guide,onAdd,onSelect,onRefresh,busy=false,vie
    </div>
    <footer className="zn-your-hub__footer">Your connections stay yours. Adding a resource leaves its data with the service that owns it.</footer>
   </main>
- </div>;
+ </ResourceCanvas>;
 }
 function ResourceCard({resource:r,selected,onSelect}:{resource:HubResource;selected:boolean;onSelect:()=>void}) {
  const ready=['Ready','Ready to read','Guide available','API reachable','Installed'].includes(r.status);
@@ -47,4 +47,9 @@ export function ResourceFlow({title,eyebrow,onClose,children}:{title:string;eyeb
  const section=useRef<HTMLElement>(null),titleId=useId();
  useEffect(()=>{section.current?.scrollIntoView({block:'start'});section.current?.focus({preventScroll:true});},[]);
  return <section ref={section} tabIndex={-1} className="zn-resource-dialog zn-resource-flow" aria-labelledby={titleId}><div className="zn-resource-dialog__heading"><div>{eyebrow&&<p className="zn-your-hub__eyebrow">{eyebrow}</p>}<h2 id={titleId}>{title}</h2></div><button type="button" onClick={onClose} aria-label="Close resource flow">×</button></div>{children}</section>;
+}
+
+/** Shared welcome artwork, framed as a background for readable resource content. */
+export function ResourceCanvas({children,paused=false}:{children:ReactNode;paused?:boolean}) {
+ return <div className="zn-your-hub"><div className="zn-your-hub__sky" aria-hidden="true"><ZenithCloudScene paused={paused}/></div>{children}</div>;
 }

@@ -30,7 +30,7 @@
     },
     {
       "path": "src/HubSetup/HubSetup.css",
-      "sha256": "fc7c772b5387cd05b094a50d96fa9c09aeafc64ab5db45b38c9ce243436cd09e",
+      "sha256": "4ca0b4e7914347349c7ee48745be1abde0bcf0ec41ba4e02b2879bd7c3c631cd",
       "origin": "guided component selection, reviewed plans and local guide presentation"
     },
     {
@@ -66,12 +66,12 @@
     {
       "path": "src/YourHub/YourHub.tsx",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "f6debd7daf1da7f169e445c77551ca9f1e4cfe622b8760545016bb2c3257da33"
+      "sha256": "97991c871ec3a238634e7f04651d61584e9630e78ab10997fe25474234a75075"
     },
     {
       "path": "src/YourHub/YourHub.css",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "c0d9c0c1de4f04ffe20b592d08b50310bfd751121ccbc06734b0c178dc7ebf4e"
+      "sha256": "b863753220392b6e84ce688085e69ea137cbf1c8ccbf704ac455ead1850a4ab3"
     },
     {
       "path": "src/YourHub/graph-layout.ts",
