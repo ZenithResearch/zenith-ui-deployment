@@ -66,17 +66,17 @@
     {
       "path": "src/YourHub/YourHub.tsx",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "3dfa76ed1c29495dbf58b52200e50dc56a84d6bee2a0d3f8933750909854dd34"
+      "sha256": "f6debd7daf1da7f169e445c77551ca9f1e4cfe622b8760545016bb2c3257da33"
     },
     {
       "path": "src/YourHub/YourHub.css",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "9343daad4f269d780bd9c326b9f8e906fe97477e4ddac32ddfb8881d9986447d"
+      "sha256": "c0d9c0c1de4f04ffe20b592d08b50310bfd751121ccbc06734b0c178dc7ebf4e"
     },
     {
       "path": "src/YourHub/graph-layout.ts",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "258471d09e831b8ca80a58c83b2e24887f238d23de2c08020a30a572872a7c63"
+      "sha256": "0a25bcb6bdd7c6acdb8c21a32f83aba93ff192d164e53f64f05c7e16da9bf7e4"
     }
   ]
 }

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+- Fit the resource graph to its canvas with an optional zoom and route long edges around intervening cards — graph relationships remain visible and reach their intended objects on narrow screens.
+
+
 ### Changed
 - Present registered and available resources in one gallery and expand setup/review on the page — choosing a resource no longer hides the Hub behind a modal.
 
