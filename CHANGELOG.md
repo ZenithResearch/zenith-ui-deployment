@@ -3,6 +3,10 @@
 ## [Unreleased]
 
 ### Changed
+- Compact resource cards to a name, short description and small action/status footer, removing the icon and management header row — more resources fit in the gallery with less visual noise.
+
+
+### Changed
 - Remove the resource page navbar and visible title, reuse the welcome cloud artwork and white/blue controls, and carry its glass guide contrast into the gallery — moving past Continue now retains the welcome theme without extra page chrome.
 
 
