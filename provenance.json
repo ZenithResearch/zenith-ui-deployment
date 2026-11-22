@@ -66,12 +66,12 @@
     {
       "path": "src/YourHub/YourHub.tsx",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "738a11e59a8e6d70c20de652cab8f74ca1f1b8832e22006b33b7f0be98e3496f"
+      "sha256": "3dfa76ed1c29495dbf58b52200e50dc56a84d6bee2a0d3f8933750909854dd34"
     },
     {
       "path": "src/YourHub/YourHub.css",
       "origin": "Your Hub resource inventory, indexed graph and guided resource review presentation",
-      "sha256": "39fdd773fa803aa5fb587b2317b724d9d76c2183ab6426c0bbe335d575a10f8b"
+      "sha256": "9343daad4f269d780bd9c326b9f8e906fe97477e4ddac32ddfb8881d9986447d"
     },
     {
       "path": "src/YourHub/graph-layout.ts",

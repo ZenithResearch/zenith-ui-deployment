@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+- Present registered and available resources in one gallery and expand setup/review on the page — choosing a resource no longer hides the Hub behind a modal.
+
+
 ### Added
 - Add reusable Your Hub inventory, resource graph, detail and guided-dialog components — the post-welcome experience can present registered resources without exposing the legacy deployer or requiring a bulk installation.
 
