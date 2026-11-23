@@ -3,6 +3,9 @@
 ## [Unreleased]
 
 ### Changed
+- Name the gallery Apps & services and separate configured instances from available apps with independent counts — installable software and existing service instances should not be presented as infrastructure resources or counted together.
+
+### Changed
 - Show the default Hermes configuration and its directory in the reuse review while retaining legacy profile reviews — provider setup should work without introducing named-profile creation or selection.
 
 ### Removed

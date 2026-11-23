@@ -46,7 +46,7 @@
     {
       "path": "src/HubSetup/HermesWelcome.tsx",
       "origin": "Welcome-screen Hermes installation and model onboarding",
-      "sha256": "78d3fdee014c98d4c75b543fb1d1bfd55aff9c5ed99b0c097a8714ef0649fd0f"
+      "sha256": "de138b9440d84fcfff75589f091cb1358a37b8c0242f28dc2621ba02b26ec3ca"
     },
     {
       "path": "src/HubSetup/ZenithCloudScene.tsx",
@@ -65,13 +65,13 @@
     },
     {
       "path": "src/YourHub/YourHub.tsx",
-      "origin": "Compact resource gallery and guided review presentation without a resource graph",
-      "sha256": "fcd49340c1ca7e9d625ecbc89b03baadd480669f1f26d3f3a2150c7935def7aa"
+      "origin": "Compact apps and services gallery with separate configured-instance and available-app sections",
+      "sha256": "1e1562b634465b5f06a0db78ddd96ba8730df2060d60b35c7109257d8b03850c"
     },
     {
       "path": "src/YourHub/YourHub.css",
-      "origin": "Compact resource gallery and guided review presentation without a resource graph",
-      "sha256": "03a9437038caefb93cb7b9ef40adce0aaf99a424632422c997f7ad354d7bf780"
+      "origin": "Compact apps and services gallery with separate configured-instance and available-app sections",
+      "sha256": "ccc9cb2e46dbe25d126be66a2840e5c0094856d7cb43b61b17d4cfef7f2832c8"
     }
   ]
 }
