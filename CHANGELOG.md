@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- Show the default Hermes configuration and its directory in the reuse review while retaining legacy profile reviews — provider setup should work without introducing named-profile creation or selection.
+
 ### Removed
 - Remove the resource graph view and top Add resource action, retaining the compact gallery with an accessible refresh icon — resource selection stays on its cards while the experimental graph is rolled back.
 

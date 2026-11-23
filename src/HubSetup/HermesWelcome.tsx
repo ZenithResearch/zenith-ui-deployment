@@ -86,20 +86,25 @@ export function HermesWelcomeReview({
   const invalid = plan.invalidated || Date.now() >= plan.expiresAt;
   const item = plan.items[0],
     install = ["install", "resume-install"].includes(plan.action),
-    profile = plan.action === "create-guide-profile";
+    profile = plan.action === "create-guide-profile",
+    defaults = profile && plan.defaultConfiguration === true;
   return (
     <>
       <dl className="zn-welcome__facts">
         <dt>
           {profile
-            ? "Guide profile"
+            ? defaults
+              ? "Configuration"
+              : "Guide profile"
             : install
               ? "Install on this Mac"
               : "Hermes model"}
         </dt>
         <dd>
           {profile
-            ? "hub-guide"
+            ? defaults
+              ? "Hermes default"
+              : "hub-guide"
             : install
               ? "Install from the official Nous repository"
               : item.config.modelName}
@@ -116,6 +121,7 @@ export function HermesWelcomeReview({
         </dd>
         <dt>Private instance</dt>
         <dd>{item.destination}</dd>
+        {defaults && <><dt>Default configuration directory</dt><dd>{item.guideBinding.configurationHome}</dd></>}
         {!install && !profile && (
           <>
             <dt>Model connection</dt>
@@ -144,7 +150,9 @@ export function HermesWelcomeReview({
       </dl>
       <p>
         {profile
-          ? "Uses the installed Hermes software and creates a dedicated Hub guide. Model configuration comes next."
+          ? defaults
+            ? "Uses the installed Hermes default configuration. Choose its model provider next."
+            : "Uses the installed Hermes software and creates a dedicated Hub guide. Model configuration comes next."
           : install
             ? "Installs the software and its managed runtime. Model selection comes next."
             : "Saves this configuration and starts Hermes. Your first chat is sent only when you choose."}
@@ -201,7 +209,9 @@ export function HermesWelcomeReview({
               : item.prerequisites.length > 0
                 ? "Check requirements again"
                 : profile
-                  ? "Create guide profile"
+                  ? defaults
+                    ? "Use default configuration"
+                    : "Create guide profile"
                   : install
                     ? "Install Hermes"
                     : plan.action === "start"
