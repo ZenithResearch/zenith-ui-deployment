@@ -11,7 +11,7 @@
       "sha256": "11d7b026f35a4da184450d9dcd1ebf4f43ae1ee443888b8ce2181ac9e005e151"
     }
   ],
-  "scope": "Deployment monitor and empty workspace presentation only. Private gallery, fonts, decks, imagery and Git history remain excluded.",
+  "scope": "Deployment monitor, workspace and guided setup presentation, including an authored code-native cloud scene and the selected Castalia bitmap retained only as design evidence. Private gallery, fonts, decks, other imagery and Git history remain excluded.",
   "authored_files": [
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.css",
@@ -20,8 +20,58 @@
     },
     {
       "path": "src/WorkspaceConsole/WorkspaceConsole.tsx",
-      "sha256": "2d0291c837312fae0ec7a9fcc54066a81fd5f5d6bf336248d33567c37e2ab684",
+      "sha256": "9f899978ddeba9c48c476bdba1d22787041c4e169fd9258220172da2656a3464",
       "origin": "native empty-workspace authoring view"
+    },
+    {
+      "path": "src/HubSetup/HubSetup.tsx",
+      "sha256": "9b0fa079bda4956d7ab97b809ad3f3ed2316f01fb05e0ca9bbcc56d037387b74",
+      "origin": "guided component selection, reviewed plans and local guide presentation"
+    },
+    {
+      "path": "src/HubSetup/HubSetup.css",
+      "sha256": "4ca0b4e7914347349c7ee48745be1abde0bcf0ec41ba4e02b2879bd7c3c631cd",
+      "origin": "guided component selection, reviewed plans and local guide presentation"
+    },
+    {
+      "path": "src/HubSetup/assets/zenith-cloud-reveal-castalia-bitmap-v1.png",
+      "sha256": "476fa2526cab00074223fc292d6980de55c144f43e91c9ad069c01dd205a2f35",
+      "origin": "InvestorDeck/src/presentation-assets/founder-thesis-v0_39-bitmap-title/zenith-cloud-reveal-castalia-bitmap-v1.png"
+    },
+    {
+      "path": "src/HubSetup/HermesModelPicker.tsx",
+      "origin": "Native Hermes provider, guided local-model and existing-server setup presentation",
+      "sha256": "c8ef88329b77d47de81de08aeccd3939fff42a714d931b8cc5121295aff18112"
+    },
+    {
+      "path": "src/HubSetup/HermesWelcome.tsx",
+      "origin": "Welcome-screen Hermes installation and model onboarding",
+      "sha256": "de138b9440d84fcfff75589f091cb1358a37b8c0242f28dc2621ba02b26ec3ca"
+    },
+    {
+      "path": "src/HubSetup/ZenithCloudScene.tsx",
+      "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
+      "sha256": "547a6b8020746b2e4b1005564e0afbd42e63eb4c88eef38a1a16ca3894760487"
+    },
+    {
+      "path": "src/HubSetup/cloud-scene-geometry.ts",
+      "origin": "Authored stepped cloud geometry and restrained ambient motion, using the recorded Castalia bitmap as visual reference",
+      "sha256": "11a88523ace1942c6982e8b251c527f5edd3a99a3a0e282d044fae972d5bd37c"
+    },
+    {
+      "path": "src/HubSetup/reply-timing.ts",
+      "origin": "Visible reply reading-time calculation at 80 words per minute",
+      "sha256": "590dbea99966dc22ff05187d09578793999482abfc208973643cd1318811123b"
+    },
+    {
+      "path": "src/YourHub/YourHub.tsx",
+      "origin": "Compact apps and services gallery with separate configured-instance and available-app sections",
+      "sha256": "1e1562b634465b5f06a0db78ddd96ba8730df2060d60b35c7109257d8b03850c"
+    },
+    {
+      "path": "src/YourHub/YourHub.css",
+      "origin": "Compact apps and services gallery with separate configured-instance and available-app sections",
+      "sha256": "ccc9cb2e46dbe25d126be66a2840e5c0094856d7cb43b61b17d4cfef7f2832c8"
     }
   ]
 }
