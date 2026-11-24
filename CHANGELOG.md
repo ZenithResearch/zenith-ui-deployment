@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- Run cloud-scene bounds and Hermes reply timing checks in CI — the published presentation branch must verify its motion and reading-time contracts as well as its build.
+
 ### Changed
 - Name the gallery Apps & services and separate configured instances from available apps with independent counts — installable software and existing service instances should not be presented as infrastructure resources or counted together.
 
